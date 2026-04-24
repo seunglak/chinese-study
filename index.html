@@ -97,39 +97,66 @@
   .btn-speed   { background: #1e293b; color: #94a3b8; border: 1px solid #374151; }
   .btn-speed.active { color: #4F8EF7; border-color: #4F8EF7; }
 
-  /* ── TABS ── */
+  /* ── LESSON TABS (1강/2강…) ── */
+  .lesson-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px 0;
+    background: #fff;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .lesson-btn {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border-radius: 8px 8px 0 0;
+    border: none;
+    background: #f1f5f9;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--sub);
+    transition: all .2s;
+    position: relative;
+  }
+  .lesson-btn.active {
+    background: #1a1a2e;
+    color: #fff;
+  }
+  .lesson-btn .lesson-title {
+    font-size: 10px;
+    font-weight: 400;
+    display: block;
+    opacity: 0.7;
+    margin-top: 1px;
+  }
+
+  /* ── SUB TABS ── */
   .tabs {
     display: flex;
     gap: 8px;
-    padding: 16px 16px 0;
+    padding: 10px 16px 0;
     overflow-x: auto;
     scrollbar-width: none;
+    background: #fff;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
     flex-shrink: 0;
-    padding: 8px 18px;
+    padding: 7px 16px;
     border-radius: 20px;
     border: 2px solid transparent;
-    background: var(--card-bg);
+    background: #f1f5f9;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all .2s;
     color: var(--sub);
   }
-  .tab-btn.active[data-tab="hui"]  { background: var(--hui-color); color: #fff; border-color: var(--hui-color); }
-  .tab-btn.active[data-tab="neng"] { background: var(--neng-color); color: #fff; border-color: var(--neng-color); }
-  .tab-btn.active[data-tab="keyi"] { background: var(--keyi-color); color: #fff; border-color: var(--keyi-color); }
-  .tab-btn.active[data-tab="compare"] { background: #8B5CF6; color: #fff; border-color: #8B5CF6; }
-  .tab-divider {
-    flex-shrink: 0;
-    align-self: center;
-    width: 1px;
-    height: 20px;
-    background: #e2e8f0;
-    margin: 0 2px;
-  }
+  .tab-btn.active[data-tab="hui"]       { background: var(--hui-color); color: #fff; border-color: var(--hui-color); }
+  .tab-btn.active[data-tab="neng"]      { background: var(--neng-color); color: #fff; border-color: var(--neng-color); }
+  .tab-btn.active[data-tab="keyi"]      { background: var(--keyi-color); color: #fff; border-color: var(--keyi-color); }
+  .tab-btn.active[data-tab="compare"]   { background: #8B5CF6; color: #fff; border-color: #8B5CF6; }
+  .tab-btn.active[data-tab="quiz"]      { background: #10b981; color: #fff; border-color: #10b981; }
   .tab-btn.active[data-tab="huifuture"] { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
   .tab-btn.active[data-tab="yao"]       { background: #a855f7; color: #fff; border-color: #a855f7; }
   .tab-btn.active[data-tab="timew"]     { background: #f59e0b; color: #fff; border-color: #f59e0b; }
@@ -605,6 +632,7 @@
   <button class="drive-btn btn-pause" onclick="pauseTTS()" id="pauseBtn" style="display:none">⏸ 일시정지</button>
   <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
   <button class="drive-btn btn-speed active" id="speedBtn" onclick="toggleSpeed()">⚡ 0.8×</button>
+  <button class="drive-btn btn-speed active" id="loopBtn" onclick="toggleLoop()">🔁 반복</button>
   <select id="voiceSelect" style="background:#1e293b;color:#94a3b8;border:1px solid #374151;border-radius:12px;padding:6px 10px;font-size:12px;cursor:pointer;max-width:160px;" onchange="onVoiceChange()">
     <option value="">🎙 목소리 로딩 중…</option>
   </select>
@@ -629,20 +657,11 @@
   <div class="np-korean" id="npKorean"></div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab-btn active" data-tab="hui" onclick="showTab('hui')">会 huì</button>
-  <button class="tab-btn" data-tab="neng" onclick="showTab('neng')">能 néng</button>
-  <button class="tab-btn" data-tab="keyi" onclick="showTab('keyi')">可以 kěyǐ</button>
-  <button class="tab-btn" data-tab="compare" onclick="showTab('compare')">📊 비교</button>
-  <button class="tab-btn" data-tab="quiz" onclick="showTab('quiz')">🎯 퀴즈</button>
-  <div class="tab-divider"></div>
-  <button class="tab-btn" data-tab="huifuture" onclick="showTab('huifuture')">会 미래</button>
-  <button class="tab-btn" data-tab="yao" onclick="showTab('yao')">要 yào</button>
-  <button class="tab-btn" data-tab="timew" onclick="showTab('timew')">시간명사</button>
-  <button class="tab-btn" data-tab="jijiang" onclick="showTab('jijiang')">快要~了</button>
-  <button class="tab-btn" data-tab="quiz2" onclick="showTab('quiz2')">🎯 퀴즈2</button>
-</div>
+<!-- LESSON TABS -->
+<div class="lesson-tabs" id="lessonTabs"></div>
+
+<!-- SUB TABS -->
+<div class="tabs" id="subTabs"></div>
 
 <!-- ═══════════════ 会 SECTION ═══════════════ -->
 <div class="content">
@@ -1337,13 +1356,83 @@
 </div><!-- end .content -->
 
 <script>
+// ── LESSON DATA ──
+const lessonData = {
+  '1': {
+    title: '会/能/可以',
+    tabs: [
+      { id: 'hui',     label: '会 huì' },
+      { id: 'neng',    label: '能 néng' },
+      { id: 'keyi',    label: '可以 kěyǐ' },
+      { id: 'compare', label: '📊 비교' },
+      { id: 'quiz',    label: '🎯 퀴즈' },
+    ]
+  },
+  '2': {
+    title: '미래표현',
+    tabs: [
+      { id: 'huifuture', label: '会 미래' },
+      { id: 'yao',       label: '要 yào' },
+      { id: 'timew',     label: '시간명사' },
+      { id: 'jijiang',   label: '快要~了' },
+      { id: 'quiz2',     label: '🎯 퀴즈' },
+    ]
+  }
+};
+
+let currentLesson = '1';
+
+function renderLessonTabs() {
+  const container = document.getElementById('lessonTabs');
+  container.innerHTML = '';
+  Object.entries(lessonData).forEach(([id, data]) => {
+    const btn = document.createElement('button');
+    btn.className = 'lesson-btn' + (id === currentLesson ? ' active' : '');
+    btn.innerHTML = `${id}강 <span class="lesson-title">${data.title}</span>`;
+    btn.onclick = () => switchLesson(id);
+    container.appendChild(btn);
+  });
+}
+
+function renderSubTabs(lessonId) {
+  const tabs = lessonData[lessonId].tabs;
+  const container = document.getElementById('subTabs');
+  container.innerHTML = '';
+  tabs.forEach((tab, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.dataset.tab = tab.id;
+    btn.textContent = tab.label;
+    btn.onclick = () => showTab(tab.id);
+    container.appendChild(btn);
+  });
+}
+
+function switchLesson(lessonId) {
+  currentLesson = lessonId;
+  stopTTS();
+  // update lesson buttons
+  document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lesson-btn')[parseInt(lessonId) - 1].classList.add('active');
+  // render sub tabs and show first section
+  renderSubTabs(lessonId);
+  const firstTab = lessonData[lessonId].tabs[0].id;
+  showTab(firstTab);
+}
+
 // ── TAB SWITCHING ──
 function showTab(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('sec-' + name).classList.add('active');
-  document.querySelector('[data-tab="' + name + '"]').classList.add('active');
+  const btn = document.querySelector('[data-tab="' + name + '"]');
+  if (btn) btn.classList.add('active');
 }
+
+// 초기 렌더링
+renderLessonTabs();
+renderSubTabs('1');
+showTab('hui');
 
 // ── CARD REVEAL ──
 function revealCard(card) {
@@ -1371,6 +1460,7 @@ let ttsIndex = 0;
 let isPaused = false;
 let ttsRate = 0.8;
 let currentUtterance = null;
+let isLooping = true;
 let selectedVoice = null;
 
 // ── VOICE LOADING ──
@@ -1432,30 +1522,30 @@ if (typeof speechSynthesis !== 'undefined') {
 }
 
 const allSentences = [
-  { text: '我会说汉语。',       pinyin: 'Wǒ huì shuō hànyǔ.',              label: '나는 중국어를 할 줄 안다.' },
-  { text: '你会开车吗？',       pinyin: 'Nǐ huì kāichē ma?',               label: '너 운전할 줄 알아?' },
-  { text: '他会弹钢琴。',       pinyin: 'Tā huì tán gāngqín.',             label: '그는 피아노를 칠 줄 안다.' },
-  { text: '你会喝酒吗？',       pinyin: 'Nǐ huì hē jiǔ ma?',              label: '너 술을 마실 줄 알아?' },
-  { text: '我能喝五瓶啤酒。',   pinyin: 'Wǒ néng hē wǔ píng píjiǔ.',      label: '나는 맥주 5병을 마실 수 있다.' },
-  { text: '你能来吗？',         pinyin: 'Nǐ néng lái ma?',                 label: '너 올 수 있어?' },
-  { text: '他能举一百公斤。',   pinyin: 'Tā néng jǔ yī bǎi gōngjīn.',     label: '그는 100킬로그램을 들 수 있다.' },
-  { text: '你能喝酒吗？',       pinyin: 'Nǐ néng hē jiǔ ma?',             label: '너 술 마셔도 돼?' },
-  { text: '这里可以抽烟吗？',   pinyin: 'Zhèlǐ kěyǐ chōuyān ma?',         label: '여기서 담배 피워도 되나요?' },
-  { text: '我可以进来吗？',     pinyin: 'Wǒ kěyǐ jìnlái ma?',             label: '들어가도 될까요?' },
-  { text: '你可以先走。',       pinyin: 'Nǐ kěyǐ xiān zǒu.',              label: '너 먼저 가도 돼.' },
-  { text: '我们可以明天见面吗？', pinyin: 'Wǒmen kěyǐ míngtiān jiànmiàn ma?', label: '우리 내일 만나도 될까요?' },
-  { text: '明天会下雨。',       pinyin: 'Míngtiān huì xià yǔ.',            label: '내일은 비가 올 것이다.' },
-  { text: '他会来的。',         pinyin: 'Tā huì lái de.',                  label: '그는 올 거야.' },
-  { text: '你会成功的。',       pinyin: 'Nǐ huì chénggōng de.',            label: '너는 성공할 거야.' },
-  { text: '我要去中国。',       pinyin: 'Wǒ yào qù Zhōngguó.',            label: '나는 중국에 갈 거야.' },
-  { text: '我要喝咖啡。',       pinyin: 'Wǒ yào hē kāfēi.',               label: '나는 커피를 마실 거야.' },
-  { text: '天要黑了。',         pinyin: 'Tiān yào hēi le.',                label: '곧 어두워지려 한다.' },
-  { text: '我们明天见。',       pinyin: 'Wǒmen míngtiān jiàn.',            label: '우리 내일 봐.' },
-  { text: '我下午给你打电话。', pinyin: 'Wǒ xiàwǔ gěi nǐ dǎ diànhuà.',   label: '내가 오후에 전화할게.' },
-  { text: '我明天吃中国菜。',   pinyin: 'Wǒ míngtiān chī Zhōngguó cài.', label: '나는 내일 중국 요리를 먹을 거야.' },
-  { text: '火车快要走了！',     pinyin: 'Huǒchē kuàiyào zǒu le!',         label: '기차가 곧 출발하려고 해!' },
-  { text: '快要下雨了，带伞吧。', pinyin: 'Kuàiyào xià yǔ le, dài sǎn ba.', label: '곧 비가 올 것 같아, 우산 챙겨.' },
-  { text: '我快要毕业了。',     pinyin: 'Wǒ kuàiyào bì yè le.',           label: '나 곧 졸업해.' },
+  { lesson:'1', text: '我会说汉语。',       pinyin: 'Wǒ huì shuō hànyǔ.',              label: '나는 중국어를 할 줄 안다.' },
+  { lesson:'1', text: '你会开车吗？',       pinyin: 'Nǐ huì kāichē ma?',               label: '너 운전할 줄 알아?' },
+  { lesson:'1', text: '他会弹钢琴。',       pinyin: 'Tā huì tán gāngqín.',             label: '그는 피아노를 칠 줄 안다.' },
+  { lesson:'1', text: '你会喝酒吗？',       pinyin: 'Nǐ huì hē jiǔ ma?',              label: '너 술을 마실 줄 알아?' },
+  { lesson:'1', text: '我能喝五瓶啤酒。',   pinyin: 'Wǒ néng hē wǔ píng píjiǔ.',      label: '나는 맥주 5병을 마실 수 있다.' },
+  { lesson:'1', text: '你能来吗？',         pinyin: 'Nǐ néng lái ma?',                 label: '너 올 수 있어?' },
+  { lesson:'1', text: '他能举一百公斤。',   pinyin: 'Tā néng jǔ yī bǎi gōngjīn.',     label: '그는 100킬로그램을 들 수 있다.' },
+  { lesson:'1', text: '你能喝酒吗？',       pinyin: 'Nǐ néng hē jiǔ ma?',             label: '너 술 마셔도 돼?' },
+  { lesson:'1', text: '这里可以抽烟吗？',   pinyin: 'Zhèlǐ kěyǐ chōuyān ma?',         label: '여기서 담배 피워도 되나요?' },
+  { lesson:'1', text: '我可以进来吗？',     pinyin: 'Wǒ kěyǐ jìnlái ma?',             label: '들어가도 될까요?' },
+  { lesson:'1', text: '你可以先走。',       pinyin: 'Nǐ kěyǐ xiān zǒu.',              label: '너 먼저 가도 돼.' },
+  { lesson:'1', text: '我们可以明天见面吗？', pinyin: 'Wǒmen kěyǐ míngtiān jiànmiàn ma?', label: '우리 내일 만나도 될까요?' },
+  { lesson:'2', text: '明天会下雨。',       pinyin: 'Míngtiān huì xià yǔ.',            label: '내일은 비가 올 것이다.' },
+  { lesson:'2', text: '他会来的。',         pinyin: 'Tā huì lái de.',                  label: '그는 올 거야.' },
+  { lesson:'2', text: '你会成功的。',       pinyin: 'Nǐ huì chénggōng de.',            label: '너는 성공할 거야.' },
+  { lesson:'2', text: '我要去中国。',       pinyin: 'Wǒ yào qù Zhōngguó.',            label: '나는 중국에 갈 거야.' },
+  { lesson:'2', text: '我要喝咖啡。',       pinyin: 'Wǒ yào hē kāfēi.',               label: '나는 커피를 마실 거야.' },
+  { lesson:'2', text: '天要黑了。',         pinyin: 'Tiān yào hēi le.',                label: '곧 어두워지려 한다.' },
+  { lesson:'2', text: '我们明天见。',       pinyin: 'Wǒmen míngtiān jiàn.',            label: '우리 내일 봐.' },
+  { lesson:'2', text: '我下午给你打电话。', pinyin: 'Wǒ xiàwǔ gěi nǐ dǎ diànhuà.',   label: '내가 오후에 전화할게.' },
+  { lesson:'2', text: '我明天吃中国菜。',   pinyin: 'Wǒ míngtiān chī Zhōngguó cài.', label: '나는 내일 중국 요리를 먹을 거야.' },
+  { lesson:'2', text: '火车快要走了！',     pinyin: 'Huǒchē kuàiyào zǒu le!',         label: '기차가 곧 출발하려고 해!' },
+  { lesson:'2', text: '快要下雨了，带伞吧。', pinyin: 'Kuàiyào xià yǔ le, dài sǎn ba.', label: '곧 비가 올 것 같아, 우산 챙겨.' },
+  { lesson:'2', text: '我快要毕业了。',     pinyin: 'Wǒ kuàiyào bì yè le.',           label: '나 곧 졸업해.' },
 ];
 
 // 개별 🔊 버튼: 중국어 → 한국어 순서로 읽기
@@ -1502,7 +1592,7 @@ document.addEventListener('visibilitychange', () => {
 
 function playAll() {
   stopTTS();
-  ttsQueue = [...allSentences];
+  ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
   ttsIndex = 0;
   isPaused = false;
   document.getElementById('pauseBtn').style.display = 'inline-flex';
@@ -1510,14 +1600,25 @@ function playAll() {
   playNext();
 }
 
+function toggleLoop() {
+  isLooping = !isLooping;
+  const btn = document.getElementById('loopBtn');
+  btn.textContent = isLooping ? '🔁 반복' : '➡️ 1회';
+  btn.classList.toggle('active', isLooping);
+}
+
 function playNext() {
   if (ttsIndex >= ttsQueue.length) {
-    document.getElementById('pauseBtn').style.display = 'none';
-    updateProgress(0, '');
-    ttsQueue = [];
-    releaseWakeLock();
-    hideNowPlaying();
-    return;
+    if (isLooping && ttsQueue.length > 0) {
+      ttsIndex = 0; // 처음부터 다시
+    } else {
+      document.getElementById('pauseBtn').style.display = 'none';
+      updateProgress(0, '');
+      ttsQueue = [];
+      releaseWakeLock();
+      hideNowPlaying();
+      return;
+    }
   }
   const item = ttsQueue[ttsIndex];
   const total = ttsQueue.length;
