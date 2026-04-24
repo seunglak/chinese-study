@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>중국어 수업 — 会·能·可以 / 미래표현</title>
+<style>
+  :root {
+    --hui-color: #4F8EF7;
+    --neng-color: #2DC98B;
+    --keyi-color: #F7824F;
+    --bg: #F4F6FB;
+    --card-bg: #fff;
+    --text: #1a1a2e;
+    --sub: #6b7280;
+    --radius: 16px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .header .week-badge {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #a0aec0;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .header h1 span {
+    background: linear-gradient(90deg, var(--hui-color), var(--neng-color), var(--keyi-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-top: 4px;
+  }
+
+  /* ── TTS DRIVE BAR ── */
+  .drive-bar {
+    background: linear-gradient(90deg, #1a1a2e, #0f3460);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .drive-label {
+    font-size: 11px;
+    color: #a0aec0;
+    white-space: nowrap;
+  }
+  .drive-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, opacity .15s;
+    white-space: nowrap;
+  }
+  .drive-btn:active { transform: scale(0.95); }
+  .btn-play-all { background: #4F8EF7; color: #fff; }
+  .btn-pause   { background: #F7824F; color: #fff; }
+  .btn-stop    { background: #374151; color: #e5e7eb; }
+  .btn-speed   { background: #1e293b; color: #94a3b8; border: 1px solid #374151; }
+  .btn-speed.active { color: #4F8EF7; border-color: #4F8EF7; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    padding: 16px 16px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background: var(--card-bg);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    color: var(--sub);
+  }
+  .tab-btn.active[data-tab="hui"]  { background: var(--hui-color); color: #fff; border-color: var(--hui-color); }
+  .tab-btn.active[data-tab="neng"] { background: var(--neng-color); color: #fff; border-color: var(--neng-color); }
+  .tab-btn.active[data-tab="keyi"] { background: var(--keyi-color); color: #fff; border-color: var(--keyi-color); }
+  .tab-btn.active[data-tab="compare"] { background: #8B5CF6; color: #fff; border-color: #8B5CF6; }
+  .tab-divider {
+    flex-shrink: 0;
+    align-self: center;
+    width: 1px;
+    height: 20px;
+    background: #e2e8f0;
+    margin: 0 2px;
+  }
+  .tab-btn.active[data-tab="huifuture"] { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+  .tab-btn.active[data-tab="yao"]       { background: #a855f7; color: #fff; border-color: #a855f7; }
+  .tab-btn.active[data-tab="timew"]     { background: #f59e0b; color: #fff; border-color: #f59e0b; }
+  .tab-btn.active[data-tab="jijiang"]   { background: #ef4444; color: #fff; border-color: #ef4444; }
+  .tab-btn.active[data-tab="quiz2"]     { background: #10b981; color: #fff; border-color: #10b981; }
+  .concept-card[data-type="huifuture"] { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+  .concept-card[data-type="yao"]       { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+  .concept-card[data-type="timew"]     { background: linear-gradient(135deg, #f59e0b, #b45309); }
+  .concept-card[data-type="jijiang"]   { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+  .card[data-type="huifuture"]::before { background: #0ea5e9; }
+  .card[data-type="yao"]::before       { background: #a855f7; }
+  .card[data-type="timew"]::before     { background: #f59e0b; }
+  .card[data-type="jijiang"]::before   { background: #ef4444; }
+  .card[data-type="huifuture"] .card-chinese .highlight { color: #0ea5e9; }
+  .card[data-type="yao"] .card-chinese .highlight       { color: #a855f7; }
+  .card[data-type="timew"] .card-chinese .highlight     { color: #f59e0b; }
+  .card[data-type="jijiang"] .card-chinese .highlight   { color: #ef4444; }
+
+  /* ── CONTENT ── */
+  .content { padding: 16px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CONCEPT CARD ── */
+  .concept-card {
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    color: #fff;
+  }
+  .concept-card[data-type="hui"]  { background: linear-gradient(135deg, #4F8EF7, #3b6fd4); }
+  .concept-card[data-type="neng"] { background: linear-gradient(135deg, #2DC98B, #1fa36f); }
+  .concept-card[data-type="keyi"] { background: linear-gradient(135deg, #F7824F, #e06a35); }
+  .concept-char {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .concept-pinyin {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .concept-meaning {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    opacity: 0.95;
+  }
+  .concept-sub {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .concept-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .concept-tag {
+    background: rgba(255,255,255,0.2);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* ── SENTENCE CARDS ── */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card:active { transform: scale(0.98); }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  .card[data-type="hui"]::before  { background: var(--hui-color); }
+  .card[data-type="neng"]::before { background: var(--neng-color); }
+  .card[data-type="keyi"]::before { background: var(--keyi-color); }
+
+  .card-chinese {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .card-chinese .highlight {
+    color: var(--hui-color);
+    font-size: 24px;
+  }
+  .card[data-type="neng"] .card-chinese .highlight { color: var(--neng-color); }
+  .card[data-type="keyi"] .card-chinese .highlight { color: var(--keyi-color); }
+
+  /* char-by-char tappable */
+  .tappable {
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 1px;
+    transition: background .15s;
+    position: relative;
+  }
+  .tappable:active, .tappable.tapped {
+    background: rgba(79,142,247,0.15);
+  }
+  .char-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a2e;
+    color: #fff;
+    padding: 5px 9px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s;
+    line-height: 1.5;
+  }
+  .char-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1a2e;
+  }
+  .tappable.tapped .char-tooltip { opacity: 1; }
+
+  .card-pinyin {
+    font-size: 13px;
+    color: var(--sub);
+    margin-top: 6px;
+    display: none;
+  }
+  .card-korean {
+    font-size: 14px;
+    color: var(--sub);
+    margin-top: 4px;
+    display: none;
+  }
+  .card.revealed .card-pinyin,
+  .card.revealed .card-korean { display: block; }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: center;
+  }
+  .btn-reveal {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: none;
+    background: #f1f5f9;
+    color: var(--sub);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .btn-tts {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background .15s;
+    margin-left: auto;
+  }
+  .btn-tts:active { background: #dbeafe; }
+
+  .hint-text {
+    font-size: 11px;
+    color: #cbd5e1;
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 14px;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-intro {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--sub);
+  }
+  .compare-intro strong { color: var(--text); }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 13px;
+  }
+  .compare-table th {
+    background: #1a1a2e;
+    color: #a0aec0;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .compare-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .char-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .char-badge.hui  { background: var(--hui-color); }
+  .char-badge.neng { background: var(--neng-color); }
+  .char-badge.keyi { background: var(--keyi-color); font-size: 12px; }
+
+  .compare-keyword {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .compare-keyword.hui  { background: #dbeafe; color: #1d4ed8; }
+  .compare-keyword.neng { background: #d1fae5; color: #065f46; }
+  .compare-keyword.keyi { background: #ffedd5; color: #9a3412; }
+
+  /* ── TIP CARD ── */
+  .tip-card {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-top: 16px;
+    box-shadow: var(--shadow);
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #92400e;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tip-card .tip-body {
+    font-size: 13px;
+    color: #78350f;
+    line-height: 1.7;
+  }
+  .tip-example {
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #7c2d12;
+  }
+  .tip-example .chin {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .tip-example .pin {
+    color: var(--sub);
+    font-size: 12px;
+  }
+  .tip-example + .tip-example { margin-top: 6px; }
+
+  /* ── QUIZ CARD ── */
+  .quiz-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .quiz-q {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .quiz-q .blank {
+    display: inline-block;
+    min-width: 40px;
+    border-bottom: 2px solid #cbd5e1;
+    text-align: center;
+    color: transparent;
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .quiz-opt {
+    padding: 10px 0;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s;
+    color: var(--text);
+  }
+  .quiz-opt:active { transform: scale(0.97); }
+  .quiz-opt.correct { background: #d1fae5; border-color: var(--neng-color); color: #065f46; }
+  .quiz-opt.wrong   { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+  .quiz-feedback {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--sub);
+    display: none;
+    line-height: 1.6;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { color: #065f46; }
+  .quiz-feedback.no { color: #991b1b; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--sub);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    padding: 8px 16px 0;
+  }
+  .progress-bar {
+    height: 3px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--hui-color), var(--neng-color), var(--keyi-color));
+    width: 0%;
+    transition: width .4s ease;
+  }
+  .progress-label {
+    font-size: 10px;
+    color: #94a3b8;
+    text-align: right;
+    margin-top: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="week-badge">2026년 4월 · 이번 주 수업</div>
+  <h1><span>会 / 能 / 可以</span> · 미래표현</h1>
+  <div class="subtitle">탭하면 뜻과 병음 표시 · 🔊 버튼으로 듣기</div>
+</div>
+
+<!-- DRIVE BAR -->
+<div class="drive-bar">
+  <span class="drive-label">🚗 운전 중 듣기</span>
+  <button class="drive-btn btn-play-all" onclick="playAll()">▶ 전체 재생</button>
+  <button class="drive-btn btn-pause" onclick="pauseTTS()" id="pauseBtn" style="display:none">⏸ 일시정지</button>
+  <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
+  <button class="drive-btn btn-speed active" id="speedBtn" onclick="toggleSpeed()">⚡ 0.8×</button>
+  <select id="voiceSelect" style="background:#1e293b;color:#94a3b8;border:1px solid #374151;border-radius:12px;padding:6px 10px;font-size:12px;cursor:pointer;max-width:160px;" onchange="onVoiceChange()">
+    <option value="">🎙 목소리 로딩 중…</option>
+  </select>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel"></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="hui" onclick="showTab('hui')">会 huì</button>
+  <button class="tab-btn" data-tab="neng" onclick="showTab('neng')">能 néng</button>
+  <button class="tab-btn" data-tab="keyi" onclick="showTab('keyi')">可以 kěyǐ</button>
+  <button class="tab-btn" data-tab="compare" onclick="showTab('compare')">📊 비교</button>
+  <button class="tab-btn" data-tab="quiz" onclick="showTab('quiz')">🎯 퀴즈</button>
+  <div class="tab-divider"></div>
+  <button class="tab-btn" data-tab="huifuture" onclick="showTab('huifuture')">会 미래</button>
+  <button class="tab-btn" data-tab="yao" onclick="showTab('yao')">要 yào</button>
+  <button class="tab-btn" data-tab="timew" onclick="showTab('timew')">시간명사</button>
+  <button class="tab-btn" data-tab="jijiang" onclick="showTab('jijiang')">快要~了</button>
+  <button class="tab-btn" data-tab="quiz2" onclick="showTab('quiz2')">🎯 퀴즈2</button>
+</div>
+
+<!-- ═══════════════ 会 SECTION ═══════════════ -->
+<div class="content">
+<div class="section active" id="sec-hui">
+  <div class="concept-card" data-type="hui">
+    <div class="concept-char">会</div>
+    <div class="concept-pinyin">huì</div>
+    <div class="concept-meaning">배워서 할 수 있다 — 습득된 능력</div>
+    <div class="concept-sub">학습·훈련으로 방법을 익혀서 할 수 있을 때 사용<br>외국어, 악기, 운전, 요리처럼 "방법을 모르면 못 하는 것"</div>
+    <div class="concept-tags">
+      <span class="concept-tag">💡 머리로 익힌 것</span>
+      <span class="concept-tag">📚 방법을 알다</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <!-- 예문 카드들 -->
+  <div class="card" data-type="hui" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
+      <span class="tappable" data-pinyin="shuō" data-meaning="말하다">说<span class="char-tooltip">shuō · 말하다</span></span>
+      <span class="tappable" data-pinyin="hànyǔ" data-meaning="중국어">汉语<span class="char-tooltip">hànyǔ · 중국어</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ huì shuō hànyǔ.</div>
+    <div class="card-korean">나는 중국어를 할 줄 안다.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我会说汉语','나는 중국어를 할 줄 안다')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="hui" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
+      <span class="tappable" data-pinyin="kāichē" data-meaning="운전하다">开车<span class="char-tooltip">kāichē · 운전하다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Nǐ huì kāichē ma?</div>
+    <div class="card-korean">너 운전할 줄 알아?</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会开车吗','너 운전할 줄 알아?')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="hui" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
+      <span class="tappable" data-pinyin="tán" data-meaning="연주하다">弹<span class="char-tooltip">tán · 연주하다</span></span>
+      <span class="tappable" data-pinyin="gāngqín" data-meaning="피아노">钢琴<span class="char-tooltip">gāngqín · 피아노</span></span>。
+    </div>
+    <div class="card-pinyin">Tā huì tán gāngqín.</div>
+    <div class="card-korean">그는 피아노를 칠 줄 안다.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会弹钢琴','그는 피아노를 칠 줄 안다')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="hui" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 알아?">会<span class="char-tooltip">huì · 할 줄 알다</span></span>
+      <span class="tappable" data-pinyin="hē jiǔ" data-meaning="술을 마시다">喝酒<span class="char-tooltip">hē jiǔ · 술을 마시다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Nǐ huì hē jiǔ ma?</div>
+    <div class="card-korean">너 술을 마실 줄 알아? (방법을 아니?)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会喝酒吗','너 술을 마실 줄 알아?')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 能 SECTION ═══════════════ -->
+<div class="section" id="sec-neng">
+  <div class="concept-card" data-type="neng">
+    <div class="concept-char">能</div>
+    <div class="concept-pinyin">néng</div>
+    <div class="concept-meaning">조건·능력이 되어 할 수 있다</div>
+    <div class="concept-sub">신체적 능력, 수치상의 효율, 상황적 여건이 받쳐줄 때<br>힘, 주량, 시간 여건 등 "몸이나 상황이 따라주는 것"</div>
+    <div class="concept-tags">
+      <span class="concept-tag">💪 몸/상황이 따라주는 것</span>
+      <span class="concept-tag">📊 수치/역량</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="neng" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="néng" data-meaning="(역량이 되어) 할 수 있다">能<span class="char-tooltip">néng · 역량/여건이 있다</span></span>
+      <span class="tappable" data-pinyin="hē" data-meaning="마시다">喝<span class="char-tooltip">hē · 마시다</span></span>
+      <span class="tappable" data-pinyin="wǔ" data-meaning="다섯">五<span class="char-tooltip">wǔ · 다섯</span></span>
+      <span class="tappable" data-pinyin="píng" data-meaning="병(量)">瓶<span class="char-tooltip">píng · 병(量)</span></span>
+      <span class="tappable" data-pinyin="píjiǔ" data-meaning="맥주">啤酒<span class="char-tooltip">píjiǔ · 맥주</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ néng hē wǔ píng píjiǔ.</div>
+    <div class="card-korean">나는 맥주 5병을 마실 수 있다. (주량)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我能喝五瓶啤酒','나는 맥주 다섯 병을 마실 수 있다')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="neng" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="néng" data-meaning="(상황이 돼서) 올 수 있어?">能<span class="char-tooltip">néng · 상황/여건이 되다</span></span>
+      <span class="tappable" data-pinyin="lái" data-meaning="오다">来<span class="char-tooltip">lái · 오다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Nǐ néng lái ma?</div>
+    <div class="card-korean">너 (시간 돼서) 올 수 있어?</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能来吗','너 올 수 있어?')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="neng" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
+      <span class="highlight tappable" data-pinyin="néng" data-meaning="~할 수 있다">能<span class="char-tooltip">néng · 역량이 되다</span></span>
+      <span class="tappable" data-pinyin="jǔ" data-meaning="들다">举<span class="char-tooltip">jǔ · 들다</span></span>
+      <span class="tappable" data-pinyin="yī bǎi" data-meaning="100">一百<span class="char-tooltip">yī bǎi · 100</span></span>
+      <span class="tappable" data-pinyin="gōngjīn" data-meaning="킬로그램">公斤<span class="char-tooltip">gōngjīn · 킬로그램</span></span>。
+    </div>
+    <div class="card-pinyin">Tā néng jǔ yī bǎi gōngjīn.</div>
+    <div class="card-korean">그는 100킬로그램을 들 수 있다. (체력)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他能举一百公斤','그는 백 킬로그램을 들 수 있다')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="neng" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="néng" data-meaning="(몸 상태가 돼서) 마실 수 있어?">能<span class="char-tooltip">néng · 몸 상태/여건</span></span>
+      <span class="tappable" data-pinyin="hē jiǔ" data-meaning="술을 마시다">喝酒<span class="char-tooltip">hē jiǔ · 술을 마시다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Nǐ néng hē jiǔ ma?</div>
+    <div class="card-korean">너 술 마셔도 돼? (오늘 차 없어? 몸 괜찮아?)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能喝酒吗','너 술 마셔도 돼?')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 可以 SECTION ═══════════════ -->
+<div class="section" id="sec-keyi">
+  <div class="concept-card" data-type="keyi">
+    <div class="concept-char">可以</div>
+    <div class="concept-pinyin">kěyǐ</div>
+    <div class="concept-meaning">허가·제안으로 할 수 있다</div>
+    <div class="concept-sub">객관적 조건이 허락되거나 누군가에게 허가를 받았을 때<br>"~해도 된다"는 허락, 가벼운 제안에도 사용</div>
+    <div class="concept-tags">
+      <span class="concept-tag">✅ "Yes"라고 인정받는 것</span>
+      <span class="concept-tag">🙋 허락을 받다</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="keyi" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="zhèlǐ" data-meaning="여기">这里<span class="char-tooltip">zhèlǐ · 여기</span></span>
+      <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
+      <span class="tappable" data-pinyin="chōuyān" data-meaning="담배 피우다">抽烟<span class="char-tooltip">chōuyān · 담배 피우다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Zhèlǐ kěyǐ chōuyān ma?</div>
+    <div class="card-korean">여기서 담배 피워도 되나요?</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('这里可以抽烟吗','여기서 담배 피워도 되나요?')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="keyi" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
+      <span class="tappable" data-pinyin="jìnlái" data-meaning="들어오다">进来<span class="char-tooltip">jìnlái · 들어오다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Wǒ kěyǐ jìnlái ma?</div>
+    <div class="card-korean">제가 들어가도 될까요?</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我可以进来吗','제가 들어가도 될까요?')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="keyi" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 돼">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
+      <span class="tappable" data-pinyin="xiān zǒu" data-meaning="먼저 가다">先走<span class="char-tooltip">xiān zǒu · 먼저 가다</span></span>。
+    </div>
+    <div class="card-pinyin">Nǐ kěyǐ xiān zǒu.</div>
+    <div class="card-korean">너 먼저 가도 돼. (허락)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你可以先走','너 먼저 가도 돼')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="keyi" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒmen" data-meaning="우리">我们<span class="char-tooltip">wǒmen · 우리</span></span>
+      <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
+      <span class="tappable" data-pinyin="míngtian" data-meaning="내일">明天<span class="char-tooltip">míngtian · 내일</span></span>
+      <span class="tappable" data-pinyin="jiànmiàn" data-meaning="만나다">见面<span class="char-tooltip">jiànmiàn · 만나다</span></span>
+      <span class="tappable" data-pinyin="ma" data-meaning="~인가요?">吗<span class="char-tooltip">ma · ~인가요?</span></span>？
+    </div>
+    <div class="card-pinyin">Wǒmen kěyǐ míngtiān jiànmiàn ma?</div>
+    <div class="card-korean">우리 내일 만나도 될까요? (제안)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们可以明天见面吗','우리 내일 만나도 될까요?')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ COMPARE SECTION ═══════════════ -->
+<div class="section" id="sec-compare">
+  <div class="compare-intro">
+    한국어로는 모두 <strong>'할 수 있다'</strong>이지만, 중국어에서는 그 능력의 <strong>출처</strong>에 따라 엄격히 구분합니다.
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>글자</th>
+        <th>의미</th>
+        <th>핵심</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="char-badge hui">会</span>
+            <div>
+              <div style="font-weight:700">huì</div>
+              <button onclick="speakText('会','후이')" style="font-size:12px;border:none;background:none;cursor:pointer;color:#6b7280">🔊</button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px">습득된 능력</div>
+          <div style="font-size:12px;color:#6b7280;line-height:1.6">학습/훈련으로 방법을 익혀서 할 수 있다</div>
+          <span class="compare-keyword hui">머리로 익힌 것</span>
+        </td>
+        <td style="font-size:12px;color:#6b7280;line-height:1.7">외국어, 악기, 요리, 운전</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="char-badge neng">能</span>
+            <div>
+              <div style="font-weight:700">néng</div>
+              <button onclick="speakText('能','넝')" style="font-size:12px;border:none;background:none;cursor:pointer;color:#6b7280">🔊</button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px">역량·여건</div>
+          <div style="font-size:12px;color:#6b7280;line-height:1.6">신체·수치·상황이 받쳐줘서 할 수 있다</div>
+          <span class="compare-keyword neng">몸/상황이 따라주는 것</span>
+        </td>
+        <td style="font-size:12px;color:#6b7280;line-height:1.7">주량, 힘, 시간 여건</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="char-badge keyi">可以</span>
+            <div>
+              <div style="font-weight:700">kěyǐ</div>
+              <button onclick="speakText('可以','커이')" style="font-size:12px;border:none;background:none;cursor:pointer;color:#6b7280">🔊</button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px">허가·제안</div>
+          <div style="font-size:12px;color:#6b7280;line-height:1.6">허락이 있어서 해도 된다</div>
+          <span class="compare-keyword keyi">"Yes"라고 인정받는 것</span>
+        </td>
+        <td style="font-size:12px;color:#6b7280;line-height:1.7">규칙 허용, 제안</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 선생님 팁 -->
+  <div class="tip-card">
+    <div class="tip-title">💡 선생님의 실전 팁 — "술 마실 줄 아니?"</div>
+    <div class="tip-body">같은 "술 마시는 것"도 어떤 맥락이냐에 따라 다른 단어를 씁니다!</div>
+    <div class="tip-example">
+      <div class="chin">你会喝酒吗？</div>
+      <div class="pin">Nǐ huì hē jiǔ ma?</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">→ 방법을 아니? 술을 입에 댈 줄은 아니?</div>
+    </div>
+    <div class="tip-example">
+      <div class="chin">你能喝酒吗？</div>
+      <div class="pin">Nǐ néng hē jiǔ ma?</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">→ 오늘 차 안 가져왔어? 몸 상태가 괜찮아?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ QUIZ SECTION ═══════════════ -->
+<div class="section" id="sec-quiz">
+  <div class="section-title">🎯 빈칸에 올바른 단어를 선택하세요</div>
+
+  <!-- Quiz 1 -->
+  <div class="quiz-section" id="q1">
+    <div class="quiz-q">나는 중국어를 할 줄 안다.<br><span style="font-size:18px;font-weight:700">我 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 说汉语。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q1','会','습득된 능력! 언어는 배워서 익힌 것이라 会를 씁니다 ✅')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q1','x','역량/여건(能)이나 허가(可以)가 아닙니다')">能</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q1','x','역량/여건(能)이나 허가(可以)가 아닙니다')">可以</button>
+    </div>
+    <div class="quiz-feedback" id="q1-fb"></div>
+  </div>
+
+  <!-- Quiz 2 -->
+  <div class="quiz-section" id="q2">
+    <div class="quiz-q">나는 맥주 5병 마실 수 있어. (주량)<br><span style="font-size:18px;font-weight:700">我 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 喝五瓶啤酒。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q2','x','배워서 익힌 것(会)이 아닙니다')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q2','能','신체적 능력(주량)이라 能을 씁니다 ✅')">能</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q2','x','허가(可以)가 아닙니다')">可以</button>
+    </div>
+    <div class="quiz-feedback" id="q2-fb"></div>
+  </div>
+
+  <!-- Quiz 3 -->
+  <div class="quiz-section" id="q3">
+    <div class="quiz-q">여기서 사진 찍어도 되나요?<br><span style="font-size:18px;font-weight:700">这里 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 拍照吗？</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q3','x','배워서 익힌 것(会)이 아닙니다')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q3','x','역량/여건(能)이 아닙니다')">能</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q3','可以','허가를 묻는 상황이라 可以를 씁니다 ✅')">可以</button>
+    </div>
+    <div class="quiz-feedback" id="q3-fb"></div>
+  </div>
+
+  <!-- Quiz 4 -->
+  <div class="quiz-section" id="q4">
+    <div class="quiz-q">그는 피아노를 칠 줄 안다.<br><span style="font-size:18px;font-weight:700">他 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 弹钢琴。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q4','会','악기는 배워서 익힌 것이라 会를 씁니다 ✅')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q4','x','역량/여건(能)이 아닙니다')">能</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q4','x','허가(可以)가 아닙니다')">可以</button>
+    </div>
+    <div class="quiz-feedback" id="q4-fb"></div>
+  </div>
+
+  <!-- Quiz 5 -->
+  <div class="quiz-section" id="q5">
+    <div class="quiz-q">너 먼저 가도 돼.<br><span style="font-size:18px;font-weight:700">你 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 先走。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q5','x','배워서 익힌 것(会)이 아닙니다')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q5','x','역량/여건(能)이 아닙니다')">能</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q5','可以','허락을 주는 상황이라 可以를 씁니다 ✅')">可以</button>
+    </div>
+    <div class="quiz-feedback" id="q5-fb"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ 会(미래) SECTION ═══════════════ -->
+<div class="section" id="sec-huifuture">
+  <div class="concept-card" data-type="huifuture">
+    <div class="concept-char">会</div>
+    <div class="concept-pinyin">huì — 미래 표현</div>
+    <div class="concept-meaning">~할 것이다 (추측·가능성)</div>
+    <div class="concept-sub">중국어는 동사가 변하지 않는 대신, 会를 앞에 붙여<br>미래의 추측이나 가능성을 나타냅니다<br>구조: 주어 + 会 + 동사</div>
+    <div class="concept-tags">
+      <span class="concept-tag">🔮 추측·가능성</span>
+      <span class="concept-tag">☁️ 아마 ~할 것이다</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
+      <span class="tappable" data-pinyin="xià yǔ" data-meaning="비가 오다">下雨<span class="char-tooltip">xià yǔ · 비가 오다</span></span>。
+    </div>
+    <div class="card-pinyin">Míngtiān huì xià yǔ.</div>
+    <div class="card-korean">내일은 비가 올 것이다.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('明天会下雨。','내일은 비가 올 것이다')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
+      <span class="tappable" data-pinyin="lái" data-meaning="오다">来<span class="char-tooltip">lái · 오다</span></span>
+      <span class="tappable" data-pinyin="de" data-meaning="(강조 어기사)">的<span class="char-tooltip">de · 강조 어기사</span></span>。
+    </div>
+    <div class="card-pinyin">Tā huì lái de.</div>
+    <div class="card-korean">그는 올 거야. (的 → 확신의 강조)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会来的。','그는 올 거야')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
+      <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
+      <span class="tappable" data-pinyin="chénggōng" data-meaning="성공하다">成功<span class="char-tooltip">chénggōng · 성공하다</span></span>
+      <span class="tappable" data-pinyin="de" data-meaning="(강조 어기사)">的<span class="char-tooltip">de · 강조</span></span>。
+    </div>
+    <div class="card-pinyin">Nǐ huì chénggōng de.</div>
+    <div class="card-korean">너는 성공할 거야.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会成功的。','너는 성공할 거야')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 要 SECTION ═══════════════ -->
+<div class="section" id="sec-yao">
+  <div class="concept-card" data-type="yao">
+    <div class="concept-char">要</div>
+    <div class="concept-pinyin">yào</div>
+    <div class="concept-meaning">~하려고 한다 / ~할 것이다 (의지·계획)</div>
+    <div class="concept-sub">주어의 강한 의지나 확정된 계획을 나타냄<br>구조: 주어 + 要 + 동사</div>
+    <div class="concept-tags">
+      <span class="concept-tag">💪 강한 의지</span>
+      <span class="concept-tag">📅 확정된 계획</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="yao" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="yào" data-meaning="~할 것이다(의지)">要<span class="char-tooltip">yào · ~할 것이다(의지)</span></span>
+      <span class="tappable" data-pinyin="qù" data-meaning="가다">去<span class="char-tooltip">qù · 가다</span></span>
+      <span class="tappable" data-pinyin="Zhōngguó" data-meaning="중국">中国<span class="char-tooltip">Zhōngguó · 중국</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ yào qù Zhōngguó.</div>
+    <div class="card-korean">나는 중국에 갈 거야. (의지·계획)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要去中国。','나는 중국에 갈 거야')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="yao" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="yào" data-meaning="~할 것이다">要<span class="char-tooltip">yào · ~할 것이다</span></span>
+      <span class="tappable" data-pinyin="hē" data-meaning="마시다">喝<span class="char-tooltip">hē · 마시다</span></span>
+      <span class="tappable" data-pinyin="kāfēi" data-meaning="커피">咖啡<span class="char-tooltip">kāfēi · 커피</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ yào hē kāfēi.</div>
+    <div class="card-korean">나는 커피를 마실 거야. (주문·의지)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要喝咖啡。','나는 커피를 마실 거야')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="yao" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="tiān" data-meaning="하늘/날씨">天<span class="char-tooltip">tiān · 하늘/날씨</span></span>
+      <span class="highlight tappable" data-pinyin="yào" data-meaning="곧 ~하려 하다">要<span class="char-tooltip">yào · 곧 ~하려 하다</span></span>
+      <span class="tappable" data-pinyin="hēi" data-meaning="어두워지다">黑<span class="char-tooltip">hēi · 어두워지다</span></span>
+      <span class="tappable" data-pinyin="le" data-meaning="(변화 어기사)">了<span class="char-tooltip">le · 변화 어기사</span></span>。
+    </div>
+    <div class="card-pinyin">Tiān yào hēi le.</div>
+    <div class="card-korean">곧 어두워지려 한다. (임박한 변화)</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('天要黑了。','곧 어두워지려 한다')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 시간명사 SECTION ═══════════════ -->
+<div class="section" id="sec-timew">
+  <div class="concept-card" data-type="timew">
+    <div class="concept-char" style="font-size:36px">시간명사</div>
+    <div class="concept-pinyin">내일·나중에·다음 주…</div>
+    <div class="concept-meaning">시간 단어만 넣으면 미래 표현 완성!</div>
+    <div class="concept-sub">중국어는 문장에 시간 단어가 있으면 동사 변화 없이<br>자동으로 미래 의미가 됩니다. 가장 자연스러운 방법이에요.</div>
+    <div class="concept-tags">
+      <span class="concept-tag">📅 내일 明天</span>
+      <span class="concept-tag">🕐 이따가 待会儿</span>
+      <span class="concept-tag">📆 다음 주 下周</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="timew" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒmen" data-meaning="우리">我们<span class="char-tooltip">wǒmen · 우리</span></span>
+      <span class="highlight tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
+      <span class="tappable" data-pinyin="jiàn" data-meaning="만나다">见<span class="char-tooltip">jiàn · 만나다</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒmen míngtiān jiàn.</div>
+    <div class="card-korean">우리 내일 봐.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们明天见。','우리 내일 봐')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="timew" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="xiàwǔ" data-meaning="오후">下午<span class="char-tooltip">xiàwǔ · 오후</span></span>
+      <span class="tappable" data-pinyin="gěi nǐ" data-meaning="너에게">给你<span class="char-tooltip">gěi nǐ · 너에게</span></span>
+      <span class="tappable" data-pinyin="dǎ diànhuà" data-meaning="전화하다">打电话<span class="char-tooltip">dǎ diànhuà · 전화하다</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ xiàwǔ gěi nǐ dǎ diànhuà.</div>
+    <div class="card-korean">내가 오후에 전화할게.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我下午给你打电话。','내가 오후에 전화할게')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="timew" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
+      <span class="tappable" data-pinyin="chī" data-meaning="먹다">吃<span class="char-tooltip">chī · 먹다</span></span>
+      <span class="tappable" data-pinyin="Zhōngguó cài" data-meaning="중국 요리">中国菜<span class="char-tooltip">Zhōngguó cài · 중국 요리</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ míngtiān chī Zhōngguó cài.</div>
+    <div class="card-korean">나는 내일 중국 요리를 먹을 거야.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我明天吃中国菜。','나는 내일 중국 요리를 먹을 거야')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 快要~了 SECTION ═══════════════ -->
+<div class="section" id="sec-jijiang">
+  <div class="concept-card" data-type="jijiang">
+    <div class="concept-char" style="font-size:36px">快要~了</div>
+    <div class="concept-pinyin">kuàiyào ~ le</div>
+    <div class="concept-meaning">곧 ~하려 한다 (임박형)</div>
+    <div class="concept-sub">일이 일어나기 직전 상황을 표현하는 패턴<br>快要 ~ 了 를 통째로 외워두면 정말 유용해요!</div>
+    <div class="concept-tags">
+      <span class="concept-tag">⚡ 곧 일어날 일</span>
+      <span class="concept-tag">🚨 임박한 변화</span>
+    </div>
+  </div>
+
+  <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
+
+  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="huǒchē" data-meaning="기차">火车<span class="char-tooltip">huǒchē · 기차</span></span>
+      <span class="highlight tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
+      <span class="tappable" data-pinyin="zǒu" data-meaning="출발하다">走<span class="char-tooltip">zǒu · 출발하다/가다</span></span>
+      <span class="tappable" data-pinyin="le" data-meaning="(임박 어기사)">了<span class="char-tooltip">le · 임박 어기사</span></span>！
+    </div>
+    <div class="card-pinyin">Huǒchē kuàiyào zǒu le!</div>
+    <div class="card-korean">기차가 곧 출발하려고 해!</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('火车快要走了！','기차가 곧 출발하려고 해')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
+      <span class="tappable" data-pinyin="xià yǔ" data-meaning="비가 오다">下雨<span class="char-tooltip">xià yǔ · 비가 오다</span></span>
+      <span class="tappable" data-pinyin="le" data-meaning="(임박)">了<span class="char-tooltip">le · 임박</span></span>，
+      <span class="tappable" data-pinyin="dài" data-meaning="가져가다">带<span class="char-tooltip">dài · 가져가다</span></span>
+      <span class="tappable" data-pinyin="sǎn" data-meaning="우산">伞<span class="char-tooltip">sǎn · 우산</span></span>
+      <span class="tappable" data-pinyin="ba" data-meaning="~해요(권유)">吧<span class="char-tooltip">ba · ~해요(권유)</span></span>。
+    </div>
+    <div class="card-pinyin">Kuàiyào xià yǔ le, dài sǎn ba.</div>
+    <div class="card-korean">곧 비가 올 것 같아, 우산 챙겨.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('快要下雨了，带伞吧。','곧 비가 올 것 같아, 우산 챙겨')">🔊</button>
+    </div>
+  </div>
+
+  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+    <div class="card-chinese">
+      <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
+      <span class="highlight tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
+      <span class="tappable" data-pinyin="bì yè" data-meaning="졸업하다">毕业<span class="char-tooltip">bì yè · 졸업하다</span></span>
+      <span class="tappable" data-pinyin="le" data-meaning="(임박)">了<span class="char-tooltip">le · 임박</span></span>。
+    </div>
+    <div class="card-pinyin">Wǒ kuàiyào bì yè le.</div>
+    <div class="card-korean">나 곧 졸업해.</div>
+    <div class="card-actions">
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我快要毕业了。','나 곧 졸업해')">🔊</button>
+    </div>
+  </div>
+
+  <!-- 비교 팁 -->
+  <div class="tip-card">
+    <div class="tip-title">💡 会 vs 要 vs 快要~了 한눈에 비교</div>
+    <div class="tip-body">같은 "비가 온다"도 뉘앙스가 달라요!</div>
+    <div class="tip-example">
+      <div class="chin">明天会下雨。</div>
+      <div class="pin">míngtiān huì xià yǔ</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">→ 내일 비가 올 것 같다 (추측·예보)</div>
+    </div>
+    <div class="tip-example">
+      <div class="chin">天要黑了。</div>
+      <div class="pin">tiān yào hēi le</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">→ 곧 어두워지려 한다 (변화 임박)</div>
+    </div>
+    <div class="tip-example">
+      <div class="chin">快要下雨了！</div>
+      <div class="pin">kuàiyào xià yǔ le</div>
+      <div style="font-size:12px;color:#92400e;margin-top:2px">→ 지금 당장 곧 비 온다! (매우 임박)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ QUIZ 2 SECTION ═══════════════ -->
+<div class="section" id="sec-quiz2">
+  <div class="section-title">🎯 미래 표현 퀴즈</div>
+
+  <div class="quiz-section" id="q6">
+    <div class="quiz-q">내일 비가 올 것 같다. (추측)<br><span style="font-size:18px;font-weight:700">明天 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 下雨。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q6','会','추측·가능성에는 会를 씁니다 ✅')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q6','x','要는 의지·계획이라 어색해요')">要</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q6','x','快要~了는 "곧"의 임박 표현이라 문장 구조가 달라요')">快要</button>
+    </div>
+    <div class="quiz-feedback" id="q6-fb"></div>
+  </div>
+
+  <div class="quiz-section" id="q7">
+    <div class="quiz-q">나는 중국에 갈 거야. (의지·계획)<br><span style="font-size:18px;font-weight:700">我 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 去中国。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q7','x','会는 추측이라 의지 표현에는 약해요')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q7','要','의지·확정된 계획에는 要를 씁니다 ✅')">要</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q7','x','快要~了는 임박한 변화 표현이에요')">快要</button>
+    </div>
+    <div class="quiz-feedback" id="q7-fb"></div>
+  </div>
+
+  <div class="quiz-section" id="q8">
+    <div class="quiz-q">기차가 곧 출발하려고 해!<br><span style="font-size:18px;font-weight:700">火车 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 走了！</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q8','x','会는 추측이라 임박 상황과 다르게 느껴져요')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q8','x','要도 쓸 수 있지만 快要가 더 강한 임박감을 줘요')">要</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q8','快要','매우 임박한 상황에는 快要~了가 딱 맞아요 ✅')">快要</button>
+    </div>
+    <div class="quiz-feedback" id="q8-fb"></div>
+  </div>
+
+  <div class="quiz-section" id="q9">
+    <div class="quiz-q">우리 내일 봐. (시간명사만 사용)<br><span style="font-size:18px;font-weight:700">我们 <span style="background:#f1f5f9;padding:2px 12px;border-radius:6px;color:#cbd5e1">?</span> 见。</span></div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="checkQuiz(this,'q9','x','会/要 없이도 됩니다')">会</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q9','x','会/要 없이도 됩니다')">要</button>
+      <button class="quiz-opt" onclick="checkQuiz(this,'q9','明天','시간명사 明天만 있으면 충분해요 ✅')">明天</button>
+    </div>
+    <div class="quiz-feedback" id="q9-fb"></div>
+  </div>
+</div>
+</div>
+</div><!-- end .content -->
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.querySelector('[data-tab="' + name + '"]').classList.add('active');
+}
+
+// ── CARD REVEAL ──
+function revealCard(card) {
+  card.classList.toggle('revealed');
+  const btn = card.querySelector('.btn-reveal');
+  if(btn) btn.textContent = card.classList.contains('revealed') ? '숨기기' : '병음 · 해석 보기';
+}
+
+// ── CHAR TOOLTIPS ──
+document.querySelectorAll('.tappable').forEach(el => {
+  el.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = this.classList.contains('tapped');
+    document.querySelectorAll('.tappable.tapped').forEach(t => t.classList.remove('tapped'));
+    if (!isOpen) this.classList.add('tapped');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.tappable.tapped').forEach(t => t.classList.remove('tapped'));
+});
+
+// ── TTS ──
+let ttsQueue = [];
+let ttsIndex = 0;
+let isPaused = false;
+let ttsRate = 0.8;
+let currentUtterance = null;
+let selectedVoice = null;
+
+// ── VOICE LOADING ──
+function loadVoices() {
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoices = voices.filter(v =>
+    v.lang.startsWith('zh') || v.lang.startsWith('cmn') ||
+    v.name.toLowerCase().includes('chinese') ||
+    v.name.toLowerCase().includes('mandarin') ||
+    v.name.toLowerCase().includes('中文') ||
+    v.name.toLowerCase().includes('普通话')
+  );
+  if (zhVoices.length === 0) return;
+
+  const sel = document.getElementById('voiceSelect');
+  sel.innerHTML = '';
+
+  // Prefer Google/Microsoft quality voices first
+  const sorted = [...zhVoices].sort((a, b) => {
+    const priority = v => {
+      if (v.name.includes('Google')) return 0;
+      if (v.name.includes('Microsoft')) return 1;
+      if (v.name.includes('Tingting') || v.name.includes('Meijia')) return 2;
+      return 3;
+    };
+    return priority(a) - priority(b);
+  });
+
+  sorted.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = v.name.replace('Microsoft ', '').replace(' Online (Natural)', ' ✨');
+    sel.appendChild(opt);
+  });
+
+  // Auto-select best voice
+  selectedVoice = sorted[0];
+  sel._voices = sorted;
+}
+
+function onVoiceChange() {
+  const sel = document.getElementById('voiceSelect');
+  selectedVoice = sel._voices ? sel._voices[parseInt(sel.value)] : null;
+}
+
+function makeUtterance(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-CN';
+  u.rate = ttsRate;
+  u.pitch = 1;
+  if (selectedVoice) u.voice = selectedVoice;
+  return u;
+}
+
+// Load voices (some browsers need the event)
+if (typeof speechSynthesis !== 'undefined') {
+  speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+}
+
+const allSentences = [
+  { text: '我会说汉语。', label: '나는 중국어를 할 줄 안다.' },
+  { text: '你会开车吗？', label: '너 운전할 줄 알아?' },
+  { text: '他会弹钢琴。', label: '그는 피아노를 칠 줄 안다.' },
+  { text: '你会喝酒吗？', label: '너 술을 마실 줄 알아?' },
+  { text: '我能喝五瓶啤酒。', label: '나는 맥주 5병을 마실 수 있다.' },
+  { text: '你能来吗？', label: '너 올 수 있어?' },
+  { text: '他能举一百公斤。', label: '그는 100킬로그램을 들 수 있다.' },
+  { text: '你能喝酒吗？', label: '너 술 마셔도 돼?' },
+  { text: '这里可以抽烟吗？', label: '여기서 담배 피워도 되나요?' },
+  { text: '我可以进来吗？', label: '들어가도 될까요?' },
+  { text: '你可以先走。', label: '너 먼저 가도 돼.' },
+  { text: '我们可以明天见面吗？', label: '우리 내일 만나도 될까요?' },
+  { text: '明天会下雨。', label: '내일은 비가 올 것이다.' },
+  { text: '他会来的。', label: '그는 올 거야.' },
+  { text: '你会成功的。', label: '너는 성공할 거야.' },
+  { text: '我要去中国。', label: '나는 중국에 갈 거야.' },
+  { text: '我要喝咖啡。', label: '나는 커피를 마실 거야.' },
+  { text: '天要黑了。', label: '곧 어두워지려 한다.' },
+  { text: '我们明天见。', label: '우리 내일 봐.' },
+  { text: '我下午给你打电话。', label: '내가 오후에 전화할게.' },
+  { text: '我明天吃中国菜。', label: '나는 내일 중국 요리를 먹을 거야.' },
+  { text: '火车快要走了！', label: '기차가 곧 출발하려고 해!' },
+  { text: '快要下雨了，带伞吧。', label: '곧 비가 올 것 같아, 우산 챙겨.' },
+  { text: '我快要毕业了。', label: '나 곧 졸업해.' },
+];
+
+// 개별 🔊 버튼: 중국어 → 한국어 순서로 읽기
+function speakText(chinese, korean) {
+  window.speechSynthesis.cancel();
+  // cancel() 직후 speak()를 바로 호출하면 무음 처리되는 브라우저 버그 방지
+  setTimeout(() => {
+    const u1 = makeUtterance(chinese);
+    u1.onend = () => {
+      setTimeout(() => {
+        if (!korean) return;
+        const u2 = new SpeechSynthesisUtterance(korean);
+        u2.lang = 'ko-KR';
+        u2.rate = ttsRate;
+        u2.pitch = 1;
+        window.speechSynthesis.speak(u2);
+      }, 400);
+    };
+    window.speechSynthesis.speak(u1);
+  }, 150);
+}
+
+// ── WAKE LOCK ──
+let wakeLock = null;
+
+async function requestWakeLock() {
+  if (!('wakeLock' in navigator)) return;
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => { wakeLock = null; });
+  } catch (e) { /* 권한 거부 등 무시 */ }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) { wakeLock.release(); wakeLock = null; }
+}
+
+// 탭이 다시 보이면 wake lock 재획득 (잠금 해제 시)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && ttsQueue.length > 0 && !isPaused) {
+    requestWakeLock();
+  }
+});
+
+function playAll() {
+  stopTTS();
+  ttsQueue = [...allSentences];
+  ttsIndex = 0;
+  isPaused = false;
+  document.getElementById('pauseBtn').style.display = 'inline-flex';
+  requestWakeLock();
+  playNext();
+}
+
+function playNext() {
+  if (ttsIndex >= ttsQueue.length) {
+    document.getElementById('pauseBtn').style.display = 'none';
+    updateProgress(0, '');
+    ttsQueue = [];
+    releaseWakeLock();
+    return;
+  }
+  const item = ttsQueue[ttsIndex];
+  updateProgress(
+    Math.round(((ttsIndex + 1) / ttsQueue.length) * 100),
+    `${ttsIndex + 1} / ${ttsQueue.length}  •  ${item.label}`
+  );
+
+  // 1단계: 중국어 읽기
+  const u1 = makeUtterance(item.text);
+  currentUtterance = u1;
+  u1.onend = () => {
+    if (isPaused) return;
+    // 2단계: 한국어 읽기
+    setTimeout(() => {
+      if (isPaused) return;
+      const u2 = new SpeechSynthesisUtterance(item.label);
+      u2.lang = 'ko-KR';
+      u2.rate = ttsRate;
+      u2.pitch = 1;
+      u2.onend = () => {
+        if (!isPaused) {
+          ttsIndex++;
+          setTimeout(playNext, 600);
+        }
+      };
+      window.speechSynthesis.speak(u2);
+    }, 400);
+  };
+  window.speechSynthesis.speak(u1);
+}
+
+function pauseTTS() {
+  if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+    isPaused = true;
+    window.speechSynthesis.pause();
+    document.getElementById('pauseBtn').textContent = '▶ 계속';
+  } else {
+    isPaused = false;
+    window.speechSynthesis.resume();
+    document.getElementById('pauseBtn').textContent = '⏸ 일시정지';
+  }
+}
+
+function stopTTS() {
+  window.speechSynthesis.cancel();
+  isPaused = false;
+  ttsIndex = 0;
+  ttsQueue = [];
+  document.getElementById('pauseBtn').style.display = 'none';
+  updateProgress(0, '');
+  releaseWakeLock();
+}
+
+function toggleSpeed() {
+  const speeds = [0.8, 1.0, 1.2];
+  const idx = speeds.indexOf(ttsRate);
+  ttsRate = speeds[(idx + 1) % speeds.length];
+  document.getElementById('speedBtn').textContent = `⚡ ${ttsRate}×`;
+}
+
+function updateProgress(pct, label) {
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = label;
+}
+
+// ── QUIZ ──
+function checkQuiz(btn, qid, answer, feedback) {
+  const section = document.getElementById(qid);
+  if (section.dataset.answered) return;
+  section.dataset.answered = '1';
+
+  const opts = section.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.style.pointerEvents = 'none');
+
+  const fb = document.getElementById(qid + '-fb');
+  if (answer !== 'x') {
+    btn.classList.add('correct');
+    btn.textContent = btn.textContent; // keep label
+    fb.textContent = '✅ 정답! ' + feedback;
+    fb.className = 'quiz-feedback show ok';
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '❌ 틀렸어요. ' + feedback;
+    fb.className = 'quiz-feedback show no';
+    // show correct
+    opts.forEach(o => {
+      if (!o.classList.contains('wrong')) {
+        const next = o.getAttribute('onclick');
+        if (next && !next.includes(",'x'")) o.classList.add('correct');
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>
