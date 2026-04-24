@@ -518,6 +518,69 @@
     text-align: right;
     margin-top: 3px;
   }
+
+  /* ── NOW PLAYING ── */
+  .now-playing {
+    display: none;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    margin: 8px 16px 0;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    border: 1px solid #334155;
+    animation: fadeIn .3s ease;
+  }
+  .now-playing.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .np-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .np-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4F8EF7;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .np-label {
+    font-size: 10px;
+    color: #64748b;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .np-count {
+    margin-left: auto;
+    font-size: 10px;
+    color: #475569;
+  }
+  .np-phase {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all .3s;
+  }
+  .np-phase.zh { background: rgba(79,142,247,0.2); color: #93c5fd; }
+  .np-phase.ko { background: rgba(45,201,139,0.2); color: #6ee7b7; }
+  .np-chinese {
+    font-size: 26px;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .np-korean {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -545,6 +608,18 @@
 <div class="progress-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-label" id="progressLabel"></div>
+</div>
+
+<!-- NOW PLAYING -->
+<div class="now-playing" id="nowPlaying">
+  <div class="np-header">
+    <div class="np-dot"></div>
+    <span class="np-label">재생 중</span>
+    <span class="np-phase zh" id="npPhase">중국어</span>
+    <span class="np-count" id="npCount"></span>
+  </div>
+  <div class="np-chinese" id="npChinese"></div>
+  <div class="np-korean" id="npKorean"></div>
 </div>
 
 <!-- TABS -->
@@ -1434,15 +1509,19 @@ function playNext() {
     updateProgress(0, '');
     ttsQueue = [];
     releaseWakeLock();
+    hideNowPlaying();
     return;
   }
   const item = ttsQueue[ttsIndex];
+  const total = ttsQueue.length;
+  const count = ttsIndex + 1;
   updateProgress(
-    Math.round(((ttsIndex + 1) / ttsQueue.length) * 100),
-    `${ttsIndex + 1} / ${ttsQueue.length}  •  ${item.label}`
+    Math.round((count / total) * 100),
+    `${count} / ${total}`
   );
 
   // 1단계: 중국어 읽기
+  showNowPlaying(item.text, item.label, count, total, 'zh');
   const u1 = makeUtterance(item.text);
   currentUtterance = u1;
   u1.onend = () => {
@@ -1450,6 +1529,7 @@ function playNext() {
     // 2단계: 한국어 읽기
     setTimeout(() => {
       if (isPaused) return;
+      showNowPlaying(item.text, item.label, count, total, 'ko');
       const u2 = new SpeechSynthesisUtterance(item.label);
       u2.lang = 'ko-KR';
       u2.rate = ttsRate;
@@ -1486,6 +1566,7 @@ function stopTTS() {
   document.getElementById('pauseBtn').style.display = 'none';
   updateProgress(0, '');
   releaseWakeLock();
+  hideNowPlaying();
 }
 
 function toggleSpeed() {
@@ -1498,6 +1579,26 @@ function toggleSpeed() {
 function updateProgress(pct, label) {
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = label;
+}
+
+function showNowPlaying(chinese, korean, count, total, phase) {
+  const el = document.getElementById('nowPlaying');
+  el.classList.add('visible');
+  document.getElementById('npChinese').textContent = chinese;
+  document.getElementById('npKorean').textContent = korean;
+  document.getElementById('npCount').textContent = `${count} / ${total}`;
+  const phaseEl = document.getElementById('npPhase');
+  if (phase === 'zh') {
+    phaseEl.textContent = '중국어';
+    phaseEl.className = 'np-phase zh';
+  } else {
+    phaseEl.textContent = '한국어';
+    phaseEl.className = 'np-phase ko';
+  }
+}
+
+function hideNowPlaying() {
+  document.getElementById('nowPlaying').classList.remove('visible');
 }
 
 // ── QUIZ ──
