@@ -1429,11 +1429,6 @@ function showTab(name) {
   if (btn) btn.classList.add('active');
 }
 
-// 초기 렌더링
-renderLessonTabs();
-renderSubTabs('1');
-showTab('hui');
-
 // ── CARD REVEAL ──
 function revealCard(card) {
   card.classList.toggle('revealed');
@@ -1738,6 +1733,13 @@ function checkQuiz(btn, qid, answer, feedback) {
     });
   }
 }
+
+// ── 초기 렌더링 (모든 변수·함수 선언 후 실행) ──
+document.addEventListener('DOMContentLoaded', function() {
+  renderLessonTabs();
+  renderSubTabs('1');
+  showTab('hui');
+});
 </script>
 </body>
 </html>
