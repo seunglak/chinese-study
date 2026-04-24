@@ -576,6 +576,12 @@
     margin-bottom: 4px;
     letter-spacing: 1px;
   }
+  .np-pinyin {
+    font-size: 13px;
+    color: #60a5fa;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
   .np-korean {
     font-size: 13px;
     color: #94a3b8;
@@ -619,6 +625,7 @@
     <span class="np-count" id="npCount"></span>
   </div>
   <div class="np-chinese" id="npChinese"></div>
+  <div class="np-pinyin" id="npPinyin"></div>
   <div class="np-korean" id="npKorean"></div>
 </div>
 
@@ -1425,30 +1432,30 @@ if (typeof speechSynthesis !== 'undefined') {
 }
 
 const allSentences = [
-  { text: '我会说汉语。', label: '나는 중국어를 할 줄 안다.' },
-  { text: '你会开车吗？', label: '너 운전할 줄 알아?' },
-  { text: '他会弹钢琴。', label: '그는 피아노를 칠 줄 안다.' },
-  { text: '你会喝酒吗？', label: '너 술을 마실 줄 알아?' },
-  { text: '我能喝五瓶啤酒。', label: '나는 맥주 5병을 마실 수 있다.' },
-  { text: '你能来吗？', label: '너 올 수 있어?' },
-  { text: '他能举一百公斤。', label: '그는 100킬로그램을 들 수 있다.' },
-  { text: '你能喝酒吗？', label: '너 술 마셔도 돼?' },
-  { text: '这里可以抽烟吗？', label: '여기서 담배 피워도 되나요?' },
-  { text: '我可以进来吗？', label: '들어가도 될까요?' },
-  { text: '你可以先走。', label: '너 먼저 가도 돼.' },
-  { text: '我们可以明天见面吗？', label: '우리 내일 만나도 될까요?' },
-  { text: '明天会下雨。', label: '내일은 비가 올 것이다.' },
-  { text: '他会来的。', label: '그는 올 거야.' },
-  { text: '你会成功的。', label: '너는 성공할 거야.' },
-  { text: '我要去中国。', label: '나는 중국에 갈 거야.' },
-  { text: '我要喝咖啡。', label: '나는 커피를 마실 거야.' },
-  { text: '天要黑了。', label: '곧 어두워지려 한다.' },
-  { text: '我们明天见。', label: '우리 내일 봐.' },
-  { text: '我下午给你打电话。', label: '내가 오후에 전화할게.' },
-  { text: '我明天吃中国菜。', label: '나는 내일 중국 요리를 먹을 거야.' },
-  { text: '火车快要走了！', label: '기차가 곧 출발하려고 해!' },
-  { text: '快要下雨了，带伞吧。', label: '곧 비가 올 것 같아, 우산 챙겨.' },
-  { text: '我快要毕业了。', label: '나 곧 졸업해.' },
+  { text: '我会说汉语。',       pinyin: 'Wǒ huì shuō hànyǔ.',              label: '나는 중국어를 할 줄 안다.' },
+  { text: '你会开车吗？',       pinyin: 'Nǐ huì kāichē ma?',               label: '너 운전할 줄 알아?' },
+  { text: '他会弹钢琴。',       pinyin: 'Tā huì tán gāngqín.',             label: '그는 피아노를 칠 줄 안다.' },
+  { text: '你会喝酒吗？',       pinyin: 'Nǐ huì hē jiǔ ma?',              label: '너 술을 마실 줄 알아?' },
+  { text: '我能喝五瓶啤酒。',   pinyin: 'Wǒ néng hē wǔ píng píjiǔ.',      label: '나는 맥주 5병을 마실 수 있다.' },
+  { text: '你能来吗？',         pinyin: 'Nǐ néng lái ma?',                 label: '너 올 수 있어?' },
+  { text: '他能举一百公斤。',   pinyin: 'Tā néng jǔ yī bǎi gōngjīn.',     label: '그는 100킬로그램을 들 수 있다.' },
+  { text: '你能喝酒吗？',       pinyin: 'Nǐ néng hē jiǔ ma?',             label: '너 술 마셔도 돼?' },
+  { text: '这里可以抽烟吗？',   pinyin: 'Zhèlǐ kěyǐ chōuyān ma?',         label: '여기서 담배 피워도 되나요?' },
+  { text: '我可以进来吗？',     pinyin: 'Wǒ kěyǐ jìnlái ma?',             label: '들어가도 될까요?' },
+  { text: '你可以先走。',       pinyin: 'Nǐ kěyǐ xiān zǒu.',              label: '너 먼저 가도 돼.' },
+  { text: '我们可以明天见面吗？', pinyin: 'Wǒmen kěyǐ míngtiān jiànmiàn ma?', label: '우리 내일 만나도 될까요?' },
+  { text: '明天会下雨。',       pinyin: 'Míngtiān huì xià yǔ.',            label: '내일은 비가 올 것이다.' },
+  { text: '他会来的。',         pinyin: 'Tā huì lái de.',                  label: '그는 올 거야.' },
+  { text: '你会成功的。',       pinyin: 'Nǐ huì chénggōng de.',            label: '너는 성공할 거야.' },
+  { text: '我要去中国。',       pinyin: 'Wǒ yào qù Zhōngguó.',            label: '나는 중국에 갈 거야.' },
+  { text: '我要喝咖啡。',       pinyin: 'Wǒ yào hē kāfēi.',               label: '나는 커피를 마실 거야.' },
+  { text: '天要黑了。',         pinyin: 'Tiān yào hēi le.',                label: '곧 어두워지려 한다.' },
+  { text: '我们明天见。',       pinyin: 'Wǒmen míngtiān jiàn.',            label: '우리 내일 봐.' },
+  { text: '我下午给你打电话。', pinyin: 'Wǒ xiàwǔ gěi nǐ dǎ diànhuà.',   label: '내가 오후에 전화할게.' },
+  { text: '我明天吃中国菜。',   pinyin: 'Wǒ míngtiān chī Zhōngguó cài.', label: '나는 내일 중국 요리를 먹을 거야.' },
+  { text: '火车快要走了！',     pinyin: 'Huǒchē kuàiyào zǒu le!',         label: '기차가 곧 출발하려고 해!' },
+  { text: '快要下雨了，带伞吧。', pinyin: 'Kuàiyào xià yǔ le, dài sǎn ba.', label: '곧 비가 올 것 같아, 우산 챙겨.' },
+  { text: '我快要毕业了。',     pinyin: 'Wǒ kuàiyào bì yè le.',           label: '나 곧 졸업해.' },
 ];
 
 // 개별 🔊 버튼: 중국어 → 한국어 순서로 읽기
@@ -1521,7 +1528,7 @@ function playNext() {
   );
 
   // 1단계: 중국어 읽기
-  showNowPlaying(item.text, item.label, count, total, 'zh');
+  showNowPlaying(item.text, item.pinyin, item.label, count, total, 'zh');
   const u1 = makeUtterance(item.text);
   currentUtterance = u1;
   u1.onend = () => {
@@ -1529,7 +1536,7 @@ function playNext() {
     // 2단계: 한국어 읽기
     setTimeout(() => {
       if (isPaused) return;
-      showNowPlaying(item.text, item.label, count, total, 'ko');
+      showNowPlaying(item.text, item.pinyin, item.label, count, total, 'ko');
       const u2 = new SpeechSynthesisUtterance(item.label);
       u2.lang = 'ko-KR';
       u2.rate = ttsRate;
@@ -1581,10 +1588,11 @@ function updateProgress(pct, label) {
   document.getElementById('progressLabel').textContent = label;
 }
 
-function showNowPlaying(chinese, korean, count, total, phase) {
+function showNowPlaying(chinese, pinyin, korean, count, total, phase) {
   const el = document.getElementById('nowPlaying');
   el.classList.add('visible');
   document.getElementById('npChinese').textContent = chinese;
+  document.getElementById('npPinyin').textContent = pinyin;
   document.getElementById('npKorean').textContent = korean;
   document.getElementById('npCount').textContent = `${count} / ${total}`;
   const phaseEl = document.getElementById('npPhase');
