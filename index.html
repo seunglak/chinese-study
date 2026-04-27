@@ -709,7 +709,7 @@
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
   <!-- 예문 카드들 -->
-  <div class="card" data-type="hui" onclick="revealCard(this)">
+  <div class="card" data-type="hui">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
@@ -719,12 +719,12 @@
     <div class="card-pinyin">Wǒ huì shuō hànyǔ.</div>
     <div class="card-korean">나는 중국어를 할 줄 안다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我会说汉语','나는 중국어를 할 줄 안다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我会说汉语','나는 중국어를 할 줄 안다')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="hui" onclick="revealCard(this)">
+  <div class="card" data-type="hui">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
@@ -734,12 +734,12 @@
     <div class="card-pinyin">Nǐ huì kāichē ma?</div>
     <div class="card-korean">너 운전할 줄 알아?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会开车吗','너 운전할 줄 알아?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你会开车吗','너 운전할 줄 알아?')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="hui" onclick="revealCard(this)">
+  <div class="card" data-type="hui">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 안다">会<span class="char-tooltip">huì · 할 줄 안다</span></span>
@@ -749,12 +749,12 @@
     <div class="card-pinyin">Tā huì tán gāngqín.</div>
     <div class="card-korean">그는 피아노를 칠 줄 안다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会弹钢琴','그는 피아노를 칠 줄 안다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('他会弹钢琴','그는 피아노를 칠 줄 안다')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="hui" onclick="revealCard(this)">
+  <div class="card" data-type="hui">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 줄 알아?">会<span class="char-tooltip">huì · 할 줄 알다</span></span>
@@ -764,8 +764,8 @@
     <div class="card-pinyin">Nǐ huì hē jiǔ ma?</div>
     <div class="card-korean">너 술을 마실 줄 알아? (방법을 아니?)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会喝酒吗','너 술을 마실 줄 알아?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你会喝酒吗','너 술을 마실 줄 알아?')">🔊</button>
     </div>
   </div>
 </div>
@@ -785,7 +785,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="neng" onclick="revealCard(this)">
+  <div class="card" data-type="neng">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="néng" data-meaning="(역량이 되어) 할 수 있다">能<span class="char-tooltip">néng · 역량/여건이 있다</span></span>
@@ -797,12 +797,12 @@
     <div class="card-pinyin">Wǒ néng hē wǔ píng píjiǔ.</div>
     <div class="card-korean">나는 맥주 5병을 마실 수 있다. (주량)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我能喝五瓶啤酒','나는 맥주 다섯 병을 마실 수 있다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我能喝五瓶啤酒','나는 맥주 다섯 병을 마실 수 있다')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="neng" onclick="revealCard(this)">
+  <div class="card" data-type="neng">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="néng" data-meaning="(상황이 돼서) 올 수 있어?">能<span class="char-tooltip">néng · 상황/여건이 되다</span></span>
@@ -812,12 +812,12 @@
     <div class="card-pinyin">Nǐ néng lái ma?</div>
     <div class="card-korean">너 (시간 돼서) 올 수 있어?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能来吗','너 올 수 있어?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你能来吗','너 올 수 있어?')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="neng" onclick="revealCard(this)">
+  <div class="card" data-type="neng">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
       <span class="highlight tappable" data-pinyin="néng" data-meaning="~할 수 있다">能<span class="char-tooltip">néng · 역량이 되다</span></span>
@@ -828,12 +828,12 @@
     <div class="card-pinyin">Tā néng jǔ yī bǎi gōngjīn.</div>
     <div class="card-korean">그는 100킬로그램을 들 수 있다. (체력)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他能举一百公斤','그는 백 킬로그램을 들 수 있다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('他能举一百公斤','그는 백 킬로그램을 들 수 있다')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="neng" onclick="revealCard(this)">
+  <div class="card" data-type="neng">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="néng" data-meaning="(몸 상태가 돼서) 마실 수 있어?">能<span class="char-tooltip">néng · 몸 상태/여건</span></span>
@@ -843,8 +843,8 @@
     <div class="card-pinyin">Nǐ néng hē jiǔ ma?</div>
     <div class="card-korean">너 술 마셔도 돼? (오늘 차 없어? 몸 괜찮아?)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能喝酒吗','너 술 마셔도 돼?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你能喝酒吗','너 술 마셔도 돼?')">🔊</button>
     </div>
   </div>
 </div>
@@ -864,7 +864,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="keyi" onclick="revealCard(this)">
+  <div class="card" data-type="keyi">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="zhèlǐ" data-meaning="여기">这里<span class="char-tooltip">zhèlǐ · 여기</span></span>
       <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
@@ -874,12 +874,12 @@
     <div class="card-pinyin">Zhèlǐ kěyǐ chōuyān ma?</div>
     <div class="card-korean">여기서 담배 피워도 되나요?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('这里可以抽烟吗','여기서 담배 피워도 되나요?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('这里可以抽烟吗','여기서 담배 피워도 되나요?')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="keyi" onclick="revealCard(this)">
+  <div class="card" data-type="keyi">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
@@ -889,12 +889,12 @@
     <div class="card-pinyin">Wǒ kěyǐ jìnlái ma?</div>
     <div class="card-korean">제가 들어가도 될까요?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我可以进来吗','제가 들어가도 될까요?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我可以进来吗','제가 들어가도 될까요?')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="keyi" onclick="revealCard(this)">
+  <div class="card" data-type="keyi">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 돼">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
@@ -903,12 +903,12 @@
     <div class="card-pinyin">Nǐ kěyǐ xiān zǒu.</div>
     <div class="card-korean">너 먼저 가도 돼. (허락)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你可以先走','너 먼저 가도 돼')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你可以先走','너 먼저 가도 돼')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="keyi" onclick="revealCard(this)">
+  <div class="card" data-type="keyi">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒmen" data-meaning="우리">我们<span class="char-tooltip">wǒmen · 우리</span></span>
       <span class="highlight tappable" data-pinyin="kěyǐ" data-meaning="~해도 되다">可以<span class="char-tooltip">kěyǐ · ~해도 되다</span></span>
@@ -919,8 +919,8 @@
     <div class="card-pinyin">Wǒmen kěyǐ míngtiān jiànmiàn ma?</div>
     <div class="card-korean">우리 내일 만나도 될까요? (제안)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们可以明天见面吗','우리 내일 만나도 될까요?')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我们可以明天见面吗','우리 내일 만나도 될까요?')">🔊</button>
     </div>
   </div>
 </div>
@@ -1086,7 +1086,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+  <div class="card" data-type="huifuture">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
@@ -1095,12 +1095,12 @@
     <div class="card-pinyin">Míngtiān huì xià yǔ.</div>
     <div class="card-korean">내일은 비가 올 것이다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('明天会下雨。','내일은 비가 올 것이다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('明天会下雨。','내일은 비가 올 것이다')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+  <div class="card" data-type="huifuture">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="tā" data-meaning="그">他<span class="char-tooltip">tā · 그</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
@@ -1110,12 +1110,12 @@
     <div class="card-pinyin">Tā huì lái de.</div>
     <div class="card-korean">그는 올 거야. (的 → 확신의 강조)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会来的。','그는 올 거야')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('他会来的。','그는 올 거야')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="huifuture" onclick="revealCard(this)">
+  <div class="card" data-type="huifuture">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="nǐ" data-meaning="너">你<span class="char-tooltip">nǐ · 너</span></span>
       <span class="highlight tappable" data-pinyin="huì" data-meaning="~할 것이다">会<span class="char-tooltip">huì · ~할 것이다</span></span>
@@ -1125,8 +1125,8 @@
     <div class="card-pinyin">Nǐ huì chénggōng de.</div>
     <div class="card-korean">너는 성공할 거야.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会成功的。','너는 성공할 거야')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('你会成功的。','너는 성공할 거야')">🔊</button>
     </div>
   </div>
 </div>
@@ -1146,7 +1146,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="yao" onclick="revealCard(this)">
+  <div class="card" data-type="yao">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="yào" data-meaning="~할 것이다(의지)">要<span class="char-tooltip">yào · ~할 것이다(의지)</span></span>
@@ -1156,12 +1156,12 @@
     <div class="card-pinyin">Wǒ yào qù Zhōngguó.</div>
     <div class="card-korean">나는 중국에 갈 거야. (의지·계획)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要去中国。','나는 중국에 갈 거야')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我要去中国。','나는 중국에 갈 거야')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="yao" onclick="revealCard(this)">
+  <div class="card" data-type="yao">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="yào" data-meaning="~할 것이다">要<span class="char-tooltip">yào · ~할 것이다</span></span>
@@ -1171,12 +1171,12 @@
     <div class="card-pinyin">Wǒ yào hē kāfēi.</div>
     <div class="card-korean">나는 커피를 마실 거야. (주문·의지)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要喝咖啡。','나는 커피를 마실 거야')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我要喝咖啡。','나는 커피를 마실 거야')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="yao" onclick="revealCard(this)">
+  <div class="card" data-type="yao">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="tiān" data-meaning="하늘/날씨">天<span class="char-tooltip">tiān · 하늘/날씨</span></span>
       <span class="highlight tappable" data-pinyin="yào" data-meaning="곧 ~하려 하다">要<span class="char-tooltip">yào · 곧 ~하려 하다</span></span>
@@ -1186,8 +1186,8 @@
     <div class="card-pinyin">Tiān yào hēi le.</div>
     <div class="card-korean">곧 어두워지려 한다. (임박한 변화)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('天要黑了。','곧 어두워지려 한다')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('天要黑了。','곧 어두워지려 한다')">🔊</button>
     </div>
   </div>
 </div>
@@ -1208,7 +1208,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="timew" onclick="revealCard(this)">
+  <div class="card" data-type="timew">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒmen" data-meaning="우리">我们<span class="char-tooltip">wǒmen · 우리</span></span>
       <span class="highlight tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
@@ -1217,12 +1217,12 @@
     <div class="card-pinyin">Wǒmen míngtiān jiàn.</div>
     <div class="card-korean">우리 내일 봐.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们明天见。','우리 내일 봐')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我们明天见。','우리 내일 봐')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="timew" onclick="revealCard(this)">
+  <div class="card" data-type="timew">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="xiàwǔ" data-meaning="오후">下午<span class="char-tooltip">xiàwǔ · 오후</span></span>
@@ -1232,12 +1232,12 @@
     <div class="card-pinyin">Wǒ xiàwǔ gěi nǐ dǎ diànhuà.</div>
     <div class="card-korean">내가 오후에 전화할게.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我下午给你打电话。','내가 오후에 전화할게')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我下午给你打电话。','내가 오후에 전화할게')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="timew" onclick="revealCard(this)">
+  <div class="card" data-type="timew">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="míngtiān" data-meaning="내일">明天<span class="char-tooltip">míngtiān · 내일</span></span>
@@ -1247,8 +1247,8 @@
     <div class="card-pinyin">Wǒ míngtiān chī Zhōngguó cài.</div>
     <div class="card-korean">나는 내일 중국 요리를 먹을 거야.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我明天吃中国菜。','나는 내일 중국 요리를 먹을 거야')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我明天吃中国菜。','나는 내일 중국 요리를 먹을 거야')">🔊</button>
     </div>
   </div>
 </div>
@@ -1268,7 +1268,7 @@
 
   <div class="hint-text">카드를 탭하면 병음과 해석이 나타납니다</div>
 
-  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+  <div class="card" data-type="jijiang">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="huǒchē" data-meaning="기차">火车<span class="char-tooltip">huǒchē · 기차</span></span>
       <span class="highlight tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
@@ -1278,12 +1278,12 @@
     <div class="card-pinyin">Huǒchē kuàiyào zǒu le!</div>
     <div class="card-korean">기차가 곧 출발하려고 해!</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('火车快要走了！','기차가 곧 출발하려고 해')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('火车快要走了！','기차가 곧 출발하려고 해')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+  <div class="card" data-type="jijiang">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
       <span class="tappable" data-pinyin="xià yǔ" data-meaning="비가 오다">下雨<span class="char-tooltip">xià yǔ · 비가 오다</span></span>
@@ -1295,12 +1295,12 @@
     <div class="card-pinyin">Kuàiyào xià yǔ le, dài sǎn ba.</div>
     <div class="card-korean">곧 비가 올 것 같아, 우산 챙겨.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('快要下雨了，带伞吧。','곧 비가 올 것 같아, 우산 챙겨')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('快要下雨了，带伞吧。','곧 비가 올 것 같아, 우산 챙겨')">🔊</button>
     </div>
   </div>
 
-  <div class="card" data-type="jijiang" onclick="revealCard(this)">
+  <div class="card" data-type="jijiang">
     <div class="card-chinese">
       <span class="tappable" data-pinyin="wǒ" data-meaning="나">我<span class="char-tooltip">wǒ · 나</span></span>
       <span class="highlight tappable" data-pinyin="kuài yào" data-meaning="곧 ~하려 하다">快要<span class="char-tooltip">kuài yào · 곧 ~하려 하다</span></span>
@@ -1310,8 +1310,8 @@
     <div class="card-pinyin">Wǒ kuàiyào bì yè le.</div>
     <div class="card-korean">나 곧 졸업해.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="event.stopPropagation(); speakText('我快要毕业了。','나 곧 졸업해')">🔊</button>
+      <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
+      <button class="btn-tts" onclick="speakText('我快要毕业了。','나 곧 졸업해')">🔊</button>
     </div>
   </div>
 
@@ -1864,6 +1864,13 @@ document.addEventListener('DOMContentLoaded', function() {
   renderSubTabs('1');
   showTab('hui');
   linkCardsToSentences();
+
+  // 카드 펼침/닫기: card-actions(.btn-tts, .btn-reveal)나 tappable 클릭은 무시
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.card-actions') || e.target.closest('.tappable')) return;
+    const card = e.target.closest('.card');
+    if (card) revealCard(card);
+  });
 });
 </script>
 </body>
