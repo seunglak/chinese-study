@@ -1726,10 +1726,7 @@ const allSentences = [
 // 개별 🔊 버튼: 모드에 따라 순서 결정
 function speakText(chinese, korean) {
   // playAll 진행 중이면 완전히 중단
-  isPaused = true;
-  ttsQueue = [];
-  ttsIndex = 0;
-  document.getElementById('pauseBtn').style.display = 'none';
+  if (ttsQueue.length > 0) stopTTS();
   hideNowPlaying();
 
   // 세대 카운터 증가 → 이전 연속 탭의 지연 콜백을 무효화
