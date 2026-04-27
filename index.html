@@ -1772,6 +1772,12 @@ function highlightPlayingCard(text) {
   });
   if (card) {
     card.classList.add('playing');
+    // 해당 카드의 섹션으로 서브탭 자동 이동
+    const section = card.closest('.section');
+    if (section) {
+      const tabId = section.id.replace('sec-', '');
+      showTab(tabId);
+    }
   }
 }
 
