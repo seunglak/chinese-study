@@ -631,7 +631,7 @@
   <button class="drive-btn btn-play-all" onclick="playAll()">▶ 전체 재생</button>
   <button class="drive-btn btn-pause" onclick="pauseTTS()" id="pauseBtn" style="display:none">⏸ 일시정지</button>
   <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
-  <button class="drive-btn btn-speed active" id="speedBtn" onclick="toggleSpeed()">⚡ 0.8×</button>
+  <button class="drive-btn btn-speed active" id="speedBtn" onclick="toggleSpeed()">⚡ 0.6×</button>
   <button class="drive-btn btn-speed active" id="loopBtn" onclick="toggleLoop()">🔁 반복</button>
   <select id="voiceSelect" style="background:#1e293b;color:#94a3b8;border:1px solid #374151;border-radius:12px;padding:6px 10px;font-size:12px;cursor:pointer;max-width:160px;" onchange="onVoiceChange()">
     <option value="">🎙 목소리 로딩 중…</option>
@@ -1453,7 +1453,7 @@ document.addEventListener('click', () => {
 let ttsQueue = [];
 let ttsIndex = 0;
 let isPaused = false;
-let ttsRate = 0.8;
+let ttsRate = 0.6;
 let currentUtterance = null;
 let isLooping = true;
 let selectedVoice = null;
@@ -1673,7 +1673,7 @@ function stopTTS() {
 }
 
 function toggleSpeed() {
-  const speeds = [0.8, 1.0, 1.2];
+  const speeds = [0.6, 0.8, 1.0, 1.2];
   const idx = speeds.indexOf(ttsRate);
   ttsRate = speeds[(idx + 1) % speeds.length];
   document.getElementById('speedBtn').textContent = `⚡ ${ttsRate}×`;
