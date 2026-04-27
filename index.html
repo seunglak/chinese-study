@@ -91,7 +91,7 @@
   }
   .drive-btn:active { opacity: 0.55; }
   .btn-play-all { background: var(--blue); color: #fff; }
-  .btn-pause   { background: #FF9500; color: #fff; }
+  .btn-play-all.btn-playing { background: #FF9500; }
   .btn-stop    { background: rgba(118,118,128,0.12); color: #3C3C43; }
   .btn-speed   { background: rgba(118,118,128,0.12); color: var(--sub); font-size: 13px; }
   .btn-speed.active { color: var(--blue); background: rgba(0,122,255,0.1); }
@@ -722,8 +722,7 @@
 
 <!-- DRIVE BAR -->
 <div class="drive-bar">
-  <button class="drive-btn btn-play-all" onclick="playAll()">▶ 전체 재생</button>
-  <button class="drive-btn btn-pause" onclick="pauseTTS()" id="pauseBtn" style="display:none">⏸ 일시정지</button>
+  <button class="drive-btn btn-play-all" onclick="togglePlayPause()" id="playBtn">▶ 전체 재생</button>
   <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
   <button class="btn-settings" id="settingsBtn" onclick="toggleSettings()">⚙ 설정</button>
 </div>
@@ -1722,15 +1721,45 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+function togglePlayPause() {
+  if (ttsQueue.length === 0) {
+    // 재생 중이 아님 → 전체 재생 시작
+    speakGen++;
+    ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
+    ttsIndex = 0;
+    isPaused = false;
+    updatePlayBtn('pause');
+    requestWakeLock();
+    playNext();
+  } else if (!isPaused) {
+    // 재생 중 → 일시정지
+    isPaused = true;
+    window.speechSynthesis.pause();
+    updatePlayBtn('resume');
+  } else {
+    // 일시정지 중 → 재개
+    isPaused = false;
+    window.speechSynthesis.resume();
+    updatePlayBtn('pause');
+  }
+}
+
+function updatePlayBtn(state) {
+  const btn = document.getElementById('playBtn');
+  if (state === 'pause') {
+    btn.textContent = '⏸ 일시정지';
+    btn.classList.add('btn-playing');
+  } else if (state === 'resume') {
+    btn.textContent = '▶ 계속';
+    btn.classList.remove('btn-playing');
+  } else {
+    btn.textContent = '▶ 전체 재생';
+    btn.classList.remove('btn-playing');
+  }
+}
+
 function playAll() {
-  stopTTS();
-  speakGen++; // 이전 speakText 타이머 무효화
-  ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
-  ttsIndex = 0;
-  isPaused = false;
-  document.getElementById('pauseBtn').style.display = 'inline-flex';
-  requestWakeLock();
-  playNext();
+  togglePlayPause();
 }
 
 function toggleLoop() {
@@ -1818,7 +1847,7 @@ function toggleMode() {
     btn.classList.add('active');
   }
   updateCardModes();
-  if (ttsQueue.length > 0) playAll();
+  if (ttsQueue.length > 0) { stopTTS(); togglePlayPause(); }
 }
 
 function playNext() {
@@ -1826,11 +1855,12 @@ function playNext() {
     if (isLooping && ttsQueue.length > 0) {
       ttsIndex = 0; // 처음부터 다시
     } else {
-      document.getElementById('pauseBtn').style.display = 'none';
+      updatePlayBtn('stop');
       updateProgress(0, '');
       ttsQueue = [];
       releaseWakeLock();
       hideNowPlaying();
+      document.querySelectorAll('.card.playing').forEach(c => c.classList.remove('playing'));
       return;
     }
   }
@@ -1878,15 +1908,7 @@ function playNext() {
 }
 
 function pauseTTS() {
-  if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-    isPaused = true;
-    window.speechSynthesis.pause();
-    document.getElementById('pauseBtn').textContent = '▶ 계속';
-  } else {
-    isPaused = false;
-    window.speechSynthesis.resume();
-    document.getElementById('pauseBtn').textContent = '⏸ 일시정지';
-  }
+  togglePlayPause();
 }
 
 function stopTTS() {
@@ -1894,7 +1916,7 @@ function stopTTS() {
   isPaused = false;
   ttsIndex = 0;
   ttsQueue = [];
-  document.getElementById('pauseBtn').style.display = 'none';
+  updatePlayBtn('stop');
   updateProgress(0, '');
   releaseWakeLock();
   hideNowPlaying();
