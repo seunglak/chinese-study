@@ -703,7 +703,6 @@
 <!-- DRIVE BAR -->
 <div class="drive-bar">
   <button class="drive-btn btn-play-all" onclick="togglePlayPause()" id="playBtn">▶ 전체 재생</button>
-  <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
   <button class="btn-settings" id="settingsBtn" onclick="toggleSettings()">⚙ 설정</button>
 </div>
 
@@ -1712,10 +1711,15 @@ function togglePlayPause() {
     window.speechSynthesis.pause();
     updatePlayBtn('resume');
   } else {
-    // 일시정지 중 → 재개
+    // 일시정지 중 → 처음부터 재시작
+    stopTTS();
+    speakGen++;
+    ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
+    ttsIndex = 0;
     isPaused = false;
-    window.speechSynthesis.resume();
     updatePlayBtn('pause');
+    requestWakeLock();
+    playNext();
   }
 }
 
