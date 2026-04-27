@@ -96,47 +96,131 @@
   .btn-speed   { background: rgba(118,118,128,0.12); color: var(--sub); font-size: 13px; }
   .btn-speed.active { color: var(--blue); background: rgba(0,122,255,0.1); }
 
-  /* ── LESSON TABS (iOS Segmented Control) ── */
-  .lesson-tabs-wrap {
-    padding: 10px 16px 0;
+  /* ── LESSON PICKER ROW ── */
+  .lesson-picker-row {
+    padding: 8px 16px 10px;
     border-top: 0.5px solid var(--sep);
     background: rgba(255,255,255,0.95);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
   }
-  .lesson-tabs {
-    background: rgba(118,118,128,0.12);
-    border-radius: 11px;
-    padding: 2px;
+  .lesson-picker-btn {
+    width: 100%;
     display: flex;
-    gap: 0;
-  }
-  .lesson-btn {
-    flex: 1;
-    padding: 7px 10px;
-    border-radius: 9px;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 12px;
     border: none;
-    background: transparent;
-    font-size: 14px;
-    font-weight: 600;
+    background: rgba(118,118,128,0.1);
     cursor: pointer;
-    color: var(--text);
-    transition: all .2s;
     font-family: var(--font);
-    text-align: center;
     -webkit-tap-highlight-color: transparent;
+    transition: opacity .12s;
+    text-align: left;
   }
-  .lesson-btn.active {
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.06);
+  .lesson-picker-btn:active { opacity: 0.6; }
+  .lpb-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    background: rgba(0,122,255,0.1);
+    padding: 3px 9px;
+    border-radius: 8px;
+    flex-shrink: 0;
   }
-  .lesson-btn .lesson-title {
-    font-size: 11px;
-    font-weight: 400;
-    display: block;
+  .lpb-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+  .lpb-chevron {
+    font-size: 13px;
     color: var(--sub);
-    margin-top: 1px;
+    flex-shrink: 0;
   }
+
+  /* ── LESSON PICKER BOTTOM SHEET ── */
+  .picker-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 500;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .picker-overlay.open { display: block; }
+  .picker-sheet {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--card-bg);
+    border-radius: 22px 22px 0 0;
+    padding: 0 0 34px;
+    max-height: 70vh;
+    overflow-y: auto;
+    z-index: 501;
+    transform: translateY(100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+  }
+  .picker-sheet.open { transform: translateY(0); }
+  .picker-handle {
+    width: 40px; height: 4px;
+    background: var(--sep);
+    border-radius: 2px;
+    margin: 14px auto 8px;
+  }
+  .picker-sheet-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 20px 12px;
+    border-bottom: 0.5px solid var(--sep);
+  }
+  .picker-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 0.5px solid var(--sep);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .12s;
+  }
+  .picker-item:last-child { border-bottom: none; }
+  .picker-item:active { background: rgba(0,0,0,0.04); }
+  .picker-item-num {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    background: rgba(0,122,255,0.1);
+    padding: 4px 10px;
+    border-radius: 9px;
+    min-width: 38px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .picker-item-info { flex: 1; }
+  .picker-item-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .picker-item-count {
+    font-size: 12px;
+    color: var(--sub);
+    margin-top: 2px;
+  }
+  .picker-item-check {
+    font-size: 18px;
+    color: var(--blue);
+    opacity: 0;
+    flex-shrink: 0;
+  }
+  .picker-item.selected .picker-item-check { opacity: 1; }
+  .picker-item.selected .picker-item-title { color: var(--blue); }
 
   /* ── SUB TABS (iOS chip pills) ── */
   .tabs {
@@ -434,9 +518,12 @@
       --sep: rgba(84,84,88,0.65);
       --blue: #0A84FF;
     }
-    .drive-bar, .settings-panel, .lesson-tabs-wrap {
+    .drive-bar, .settings-panel, .lesson-picker-row {
       background: rgba(28,28,30,0.97);
     }
+    .picker-sheet { background: #1C1C1E; }
+    .picker-item:active { background: rgba(255,255,255,0.06); }
+    .lpb-num, .picker-item-num { background: rgba(10,132,255,0.15); }
     .btn-stop { color: rgba(235,235,245,0.6) !important; }
     .lesson-btn.active {
       background: #2C2C2E;
@@ -733,9 +820,21 @@
   <div class="np-korean" id="npKorean"></div>
 </div>
 
-<!-- LESSON TABS -->
-<div class="lesson-tabs-wrap">
-  <div class="lesson-tabs" id="lessonTabs"></div>
+<!-- LESSON PICKER -->
+<div class="lesson-picker-row">
+  <button class="lesson-picker-btn" onclick="openLessonPicker()" id="lessonPickerBtn">
+    <span class="lpb-num" id="lpbNum">1강</span>
+    <span class="lpb-title" id="lpbTitle">수업 선택</span>
+    <span class="lpb-chevron">▾</span>
+  </button>
+</div>
+
+<!-- PICKER BOTTOM SHEET -->
+<div class="picker-overlay" id="pickerOverlay" onclick="closeLessonPicker()"></div>
+<div class="picker-sheet" id="pickerSheet">
+  <div class="picker-handle"></div>
+  <div class="picker-sheet-title">수업 선택</div>
+  <div id="pickerList"></div>
 </div>
 
 <!-- SUB TABS -->
@@ -1462,15 +1561,48 @@ const lessonData = {
 let currentLesson = '1';
 
 function renderLessonTabs() {
-  const container = document.getElementById('lessonTabs');
-  container.innerHTML = '';
+  updateLessonPickerBtn();
+  renderPickerList();
+}
+
+function updateLessonPickerBtn() {
+  const data = lessonData[currentLesson];
+  if (!data) return;
+  const lessonNum = isNaN(currentLesson) ? currentLesson : currentLesson + '강';
+  document.getElementById('lpbNum').textContent = lessonNum;
+  document.getElementById('lpbTitle').textContent = data.title;
+}
+
+function renderPickerList() {
+  const list = document.getElementById('pickerList');
+  list.innerHTML = '';
   Object.entries(lessonData).forEach(([id, data]) => {
-    const btn = document.createElement('button');
-    btn.className = 'lesson-btn' + (id === currentLesson ? ' active' : '');
-    btn.innerHTML = `${id}강 <span class="lesson-title">${data.title}</span>`;
-    btn.onclick = () => switchLesson(id);
-    container.appendChild(btn);
+    const sentenceCount = allSentences.filter(s => s.lesson === id).length;
+    const item = document.createElement('div');
+    item.className = 'picker-item' + (id === currentLesson ? ' selected' : '');
+    item.dataset.id = id;
+    const lessonNum = isNaN(id) ? id : id + '강';
+    item.innerHTML = `
+      <span class="picker-item-num">${lessonNum}</span>
+      <div class="picker-item-info">
+        <div class="picker-item-title">${data.title}</div>
+        <div class="picker-item-count">예문 ${sentenceCount}개</div>
+      </div>
+      <span class="picker-item-check">✓</span>`;
+    item.onclick = () => { closeLessonPicker(); switchLesson(id); };
+    list.appendChild(item);
   });
+}
+
+function openLessonPicker() {
+  renderPickerList();
+  document.getElementById('pickerOverlay').classList.add('open');
+  document.getElementById('pickerSheet').classList.add('open');
+}
+
+function closeLessonPicker() {
+  document.getElementById('pickerOverlay').classList.remove('open');
+  document.getElementById('pickerSheet').classList.remove('open');
 }
 
 function renderSubTabs(lessonId) {
@@ -1490,10 +1622,7 @@ function renderSubTabs(lessonId) {
 function switchLesson(lessonId) {
   currentLesson = lessonId;
   stopTTS();
-  // update lesson buttons
-  document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.lesson-btn')[parseInt(lessonId) - 1].classList.add('active');
-  // render sub tabs and show first section
+  updateLessonPickerBtn();
   renderSubTabs(lessonId);
   const firstTab = lessonData[lessonId].tabs[0].id;
   showTab(firstTab);
