@@ -1484,6 +1484,7 @@ let ttsIndex = 0;
 let isPaused = false;
 let ttsRate = 0.6;
 let currentUtterance = null;
+let speakGen = 0; // 세대 카운터: 연속 탭 시 이전 요청의 타이머를 무효화
 let isLooping = true;
 let studyMode = 'zh'; // 'zh' = 중국어 학습(중→한), 'ko' = 한국어 학습(한→중)
 let selectedVoice = null;
@@ -1582,6 +1583,10 @@ function speakText(chinese, korean) {
   document.getElementById('pauseBtn').style.display = 'none';
   hideNowPlaying();
 
+  // 세대 카운터 증가 → 이전 연속 탭의 지연 콜백을 무효화
+  speakGen++;
+  const myGen = speakGen;
+
   const isKoMode = studyMode === 'ko';
   const makeKo = (text) => {
     const u = new SpeechSynthesisUtterance(text);
@@ -1589,21 +1594,28 @@ function speakText(chinese, korean) {
     return u;
   };
 
-  const doSpeak = () => {
+  // 항상 cancel() 로 Chrome의 stuck 상태 리셋 (재생 중 여부 무관)
+  window.speechSynthesis.cancel();
+
+  // 100ms: Chrome이 내부 상태 리셋하기에 충분, iOS 제스처 체인도 보통 유지됨
+  setTimeout(() => {
+    if (speakGen !== myGen) return; // 이미 더 새로운 요청이 들어온 경우 중단
+
     const first  = isKoMode ? makeKo(korean)        : makeUtterance(chinese);
     const second = isKoMode ? makeUtterance(chinese) : makeKo(korean);
-    first.onend = () => setTimeout(() => window.speechSynthesis.speak(second), 300);
-    window.speechSynthesis.speak(first);
-  };
 
-  // 재생 중일 때만 cancel + 딜레이 (Chrome 버그 대응)
-  // 아무것도 안 재생 중일 때는 즉시 speak (iOS Safari 사용자 제스처 체인 유지)
-  if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
-    window.speechSynthesis.cancel();
-    setTimeout(doSpeak, 200);
-  } else {
-    doSpeak();
-  }
+    first.onerror  = (e) => { /* interrupted 는 정상 — 무시 */ };
+    second.onerror = (e) => { /* 무시 */ };
+
+    first.onend = () => {
+      setTimeout(() => {
+        if (speakGen !== myGen) return; // 그 사이 새 탭이 눌렸으면 중단
+        window.speechSynthesis.speak(second);
+      }, 300);
+    };
+
+    window.speechSynthesis.speak(first);
+  }, 100);
 }
 
 // ── WAKE LOCK ──
@@ -1630,6 +1642,7 @@ document.addEventListener('visibilitychange', () => {
 
 function playAll() {
   stopTTS();
+  speakGen++; // 이전 speakText 타이머 무효화
   ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
   ttsIndex = 0;
   isPaused = false;
