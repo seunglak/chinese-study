@@ -778,7 +778,7 @@
 
 <!-- DRIVE BAR -->
 <div class="drive-bar">
-  <button class="drive-btn btn-play-all" onclick="togglePlayPause()" id="playBtn">▶ 전체 재생</button>
+  <button class="drive-btn btn-play-all" onclick="togglePlayPause()" id="playBtn">Play</button>
   <button class="btn-settings" id="settingsBtn" onclick="toggleSettings()">⚙ 설정</button>
 </div>
 
@@ -1791,43 +1791,31 @@ document.addEventListener('visibilitychange', () => {
 
 function togglePlayPause() {
   if (ttsQueue.length === 0) {
-    // 재생 중이 아님 → 전체 재생 시작
+    // 재생 시작
     speakGen++;
     ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
     ttsIndex = 0;
     isPaused = false;
-    updatePlayBtn('pause');
+    updatePlayBtn(true);
     requestWakeLock();
     playNext();
-  } else if (!isPaused) {
-    // 재생 중 → 일시정지
-    isPaused = true;
-    window.speechSynthesis.pause();
-    updatePlayBtn('resume');
   } else {
-    // 일시정지 중 → 처음부터 재시작
+    // 재생 중 → 완전 정지
     stopTTS();
-    speakGen++;
-    ttsQueue = allSentences.filter(s => s.lesson === currentLesson);
-    ttsIndex = 0;
-    isPaused = false;
-    updatePlayBtn('pause');
-    requestWakeLock();
-    playNext();
   }
 }
 
-function updatePlayBtn(state) {
+function updatePlayBtn(isPlaying) {
   const btn = document.getElementById('playBtn');
-  if (state === 'pause') {
-    btn.textContent = '⏸ 일시정지';
+  const picker = document.querySelector('.lesson-picker-row');
+  if (isPlaying) {
+    btn.textContent = 'Stop';
     btn.classList.add('btn-playing');
-  } else if (state === 'resume') {
-    btn.textContent = '▶ 계속';
-    btn.classList.remove('btn-playing');
+    if (picker) picker.style.display = 'none';
   } else {
-    btn.textContent = '▶ 전체 재생';
+    btn.textContent = 'Play';
     btn.classList.remove('btn-playing');
+    if (picker) picker.style.display = '';
   }
 }
 
@@ -1920,7 +1908,7 @@ function toggleMode() {
     btn.classList.add('active');
   }
   updateCardModes();
-  if (ttsQueue.length > 0) { stopTTS(); togglePlayPause(); }
+  if (ttsQueue.length > 0) { stopTTS(); setTimeout(togglePlayPause, 50); }
 }
 
 function playNext() {
@@ -1928,7 +1916,7 @@ function playNext() {
     if (isLooping && ttsQueue.length > 0) {
       ttsIndex = 0; // 처음부터 다시
     } else {
-      updatePlayBtn('stop');
+      updatePlayBtn(false);
       updateProgress(0, '');
       ttsQueue = [];
       releaseWakeLock();
@@ -1989,7 +1977,7 @@ function stopTTS() {
   isPaused = false;
   ttsIndex = 0;
   ttsQueue = [];
-  updatePlayBtn('stop');
+  updatePlayBtn(false);
   updateProgress(0, '');
   releaseWakeLock();
   hideNowPlaying();
