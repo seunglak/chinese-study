@@ -348,36 +348,28 @@
   }
   .tappable.tapped .char-tooltip { opacity: 1; }
 
-  /* 펼침 애니메이션 */
-  .card-pinyin, .card-korean {
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height .28s ease, opacity .22s ease;
-  }
+  /* 병음·해석 항상 표시 */
   .card-pinyin {
     font-size: 13px;
     color: #60a5fa;
     font-weight: 500;
-    margin-top: 0;
+    margin-top: 7px;
+    display: block;
+    overflow: hidden;
+    transition: max-height .28s ease, opacity .22s ease;
   }
   .card-korean {
     font-size: 14px;
     color: var(--sub);
-    margin-top: 0;
-  }
-  .card.revealed .card-pinyin {
-    max-height: 60px;
-    opacity: 1;
-    margin-top: 7px;
-    display: block;
-  }
-  .card.revealed .card-korean {
-    max-height: 60px;
-    opacity: 1;
     margin-top: 3px;
     display: block;
+    overflow: hidden;
+    transition: max-height .28s ease, opacity .22s ease;
   }
+
+  /* 펼치기 버튼: zh 모드에서 숨김, ko 모드에서만 표시 */
+  .btn-reveal { display: none; }
+  body.ko-mode .btn-reveal { display: inline-block; }
 
   .card-actions {
     display: flex;
