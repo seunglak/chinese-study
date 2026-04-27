@@ -71,7 +71,7 @@
     align-items: center;
     gap: 7px;
     flex-wrap: wrap;
-    border-bottom: 0.5px solid var(--sep);
+    border-bottom: none;
   }
   .drive-label { display: none; }
   .drive-btn {
@@ -97,8 +97,14 @@
   .btn-speed.active { color: var(--blue); background: rgba(0,122,255,0.1); }
 
   /* ── LESSON TABS (iOS Segmented Control) ── */
+  .lesson-tabs-wrap {
+    padding: 10px 16px 0;
+    border-top: 0.5px solid var(--sep);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
   .lesson-tabs {
-    margin: 10px 16px 0;
     background: rgba(118,118,128,0.12);
     border-radius: 11px;
     padding: 2px;
@@ -393,8 +399,8 @@
   .settings-panel {
     display: none;
     background: rgba(255,255,255,0.98);
-    border-bottom: 0.5px solid var(--sep);
-    padding: 12px 16px;
+    border-bottom: none;
+    padding: 4px 16px 12px;
     gap: 8px;
     flex-wrap: wrap;
     align-items: center;
@@ -417,92 +423,6 @@
     width: 100%;
   }
 
-  /* ── LESSON ADD BUTTON ── */
-  .lesson-add-btn {
-    flex-shrink: 0;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0,122,255,0.12);
-    color: var(--blue);
-    font-size: 20px;
-    font-weight: 300;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    line-height: 1;
-    -webkit-tap-highlight-color: transparent;
-    transition: background .15s;
-    margin-left: 6px;
-    align-self: center;
-  }
-  .lesson-add-btn:active { opacity: 0.55; }
-
-  /* ── ADD LESSON MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 1000;
-    align-items: flex-end;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--card-bg);
-    border-radius: 22px 22px 0 0;
-    padding: 20px 20px 36px;
-    width: 100%;
-    max-width: 480px;
-    animation: slideUp .28s cubic-bezier(.4,0,.2,1);
-  }
-  @keyframes slideUp {
-    from { transform: translateY(60px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
-  }
-  .modal-handle {
-    width: 40px; height: 4px;
-    background: var(--sep);
-    border-radius: 2px;
-    margin: 0 auto 18px;
-  }
-  .modal-title {
-    font-size: 18px; font-weight: 700;
-    color: var(--text); margin-bottom: 16px;
-  }
-  .modal-field { margin-bottom: 14px; }
-  .modal-field label {
-    font-size: 12px; color: var(--sub);
-    font-weight: 500; text-transform: uppercase;
-    letter-spacing: 0.4px; display: block; margin-bottom: 6px;
-  }
-  .modal-input {
-    width: 100%;
-    background: rgba(118,118,128,0.1);
-    border: 0.5px solid var(--sep);
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 15px;
-    font-family: var(--font);
-    color: var(--text);
-    outline: none;
-    resize: none;
-    -webkit-appearance: none;
-  }
-  .modal-input:focus { border-color: var(--blue); }
-  .modal-hint { font-size: 12px; color: var(--sub); margin-top: 5px; line-height: 1.5; }
-  .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
-  .modal-btn {
-    flex: 1; padding: 14px;
-    border-radius: 14px; border: none;
-    font-size: 16px; font-weight: 600;
-    cursor: pointer; font-family: var(--font);
-    -webkit-tap-highlight-color: transparent;
-  }
-  .modal-btn-cancel { background: rgba(118,118,128,0.12); color: var(--sub); }
-  .modal-btn-save   { background: var(--blue); color: #fff; }
-  .modal-btn:active { opacity: 0.6; }
 
   /* ── DARK MODE ── */
   @media (prefers-color-scheme: dark) {
@@ -514,7 +434,7 @@
       --sep: rgba(84,84,88,0.65);
       --blue: #0A84FF;
     }
-    .drive-bar, .settings-panel {
+    .drive-bar, .settings-panel, .lesson-tabs-wrap {
       background: rgba(28,28,30,0.97);
     }
     .btn-stop { color: rgba(235,235,245,0.6) !important; }
@@ -528,7 +448,7 @@
     .header {
       background: rgba(0,0,0,0.88);
     }
-    .progress-wrap {
+    .progress-wrap.playing {
       background: rgba(28,28,30,0.97);
     }
     .progress-bar { background: rgba(255,255,255,0.08); }
@@ -546,9 +466,6 @@
     .compare-keyword.keyi { background: #2E1A00; color: #FF9F0A; }
     .char-tooltip { background: #3A3A3C; color: #EBEBF5; }
     .char-tooltip::after { border-top-color: #3A3A3C; }
-    .modal { background: #1C1C1E; }
-    .modal-input { background: rgba(118,118,128,0.15); color: #FFFFFF; }
-    .modal-btn-cancel { background: rgba(118,118,128,0.2); color: rgba(235,235,245,0.6); }
     .settings-panel { background: rgba(28,28,30,0.98); }
     .card.playing { background: rgba(10,132,255,0.07) !important; }
   }
@@ -725,15 +642,21 @@
   body.ko-mode .card[data-type] { border-left-color: var(--neng-color) !important; }
 
   /* ── PROGRESS BAR (iOS thin blue) ── */
-  .progress-wrap { padding: 0 16px; background: rgba(255,255,255,0.95); border-bottom: 0.5px solid var(--sep); }
-  .progress-bar { height: 2px; background: rgba(0,0,0,0.06); overflow: hidden; }
+  .progress-wrap {
+    display: none;  /* 재생 중에만 표시 */
+    padding: 0 16px 4px;
+    background: rgba(255,255,255,0.95);
+    border-bottom: 0.5px solid var(--sep);
+  }
+  .progress-wrap.playing { display: block; }
+  .progress-bar { height: 2px; background: rgba(0,0,0,0.06); overflow: hidden; margin-top: 5px; }
   .progress-fill {
     height: 100%;
     background: var(--blue);
     width: 0%;
     transition: width .4s cubic-bezier(.4,0,.2,1);
   }
-  .progress-label { font-size: 11px; color: var(--sub); text-align: right; padding: 3px 0 4px; }
+  .progress-label { font-size: 11px; color: var(--sub); text-align: right; padding: 2px 0 0; }
 
   /* ── NOW PLAYING (iOS Music Player) ── */
   .now-playing {
@@ -838,7 +761,9 @@
 </div>
 
 <!-- LESSON TABS -->
-<div class="lesson-tabs" id="lessonTabs"></div>
+<div class="lesson-tabs-wrap">
+  <div class="lesson-tabs" id="lessonTabs"></div>
+</div>
 
 <!-- SUB TABS -->
 <div class="tabs" id="subTabs"></div>
@@ -1535,27 +1460,6 @@
 </div>
 </div><!-- end .content -->
 
-<!-- ADD LESSON MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleModalOverlayClick(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">새 수업 추가</div>
-    <div class="modal-field">
-      <label>수업 제목</label>
-      <input class="modal-input" id="newLessonTitle" type="text" placeholder="예: 과거표현 了/过" />
-    </div>
-    <div class="modal-field">
-      <label>예문 (한 줄에 하나씩)</label>
-      <textarea class="modal-input" id="newLessonSentences" rows="6"
-        placeholder="형식: 중국어|병음|한국어 뜻|로마자 발음&#10;예: 我吃了。|Wǒ chī le.|나는 먹었다.|Na-neun meogeotda."></textarea>
-      <div class="modal-hint">📌 각 항목을 <strong>|</strong> 로 구분해 주세요.<br>로마자 발음은 생략 가능합니다.</div>
-    </div>
-    <div class="modal-actions">
-      <button class="modal-btn modal-btn-cancel" onclick="closeAddLessonModal()">취소</button>
-      <button class="modal-btn modal-btn-save" onclick="saveNewLesson()">저장</button>
-    </div>
-  </div>
-</div>
 
 <script>
 // ── LESSON DATA ──
@@ -1594,13 +1498,6 @@ function renderLessonTabs() {
     btn.onclick = () => switchLesson(id);
     container.appendChild(btn);
   });
-  // "+" 버튼
-  const addBtn = document.createElement('button');
-  addBtn.className = 'lesson-add-btn';
-  addBtn.textContent = '+';
-  addBtn.title = '새 수업 추가';
-  addBtn.onclick = openAddLessonModal;
-  container.appendChild(addBtn);
 }
 
 function renderSubTabs(lessonId) {
@@ -1875,7 +1772,6 @@ function highlightPlayingCard(text) {
   });
   if (card) {
     card.classList.add('playing');
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
 
@@ -2007,8 +1903,10 @@ function toggleSpeed() {
 }
 
 function updateProgress(pct, label) {
+  const wrap = document.querySelector('.progress-wrap');
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = label;
+  wrap.classList.toggle('playing', pct > 0);
 }
 
 function showNowPlaying(chinese, pinyin, roman, korean, count, total, phase) {
@@ -2071,128 +1969,12 @@ function toggleSettings() {
   btn.textContent = isOpen ? '⚙ 닫기' : '⚙ 설정';
 }
 
-// ── ADD LESSON MODAL ──
-function openAddLessonModal() {
-  document.getElementById('newLessonTitle').value = '';
-  document.getElementById('newLessonSentences').value = '';
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-function closeAddLessonModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-function handleModalOverlayClick(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeAddLessonModal();
-}
-
-function saveNewLesson() {
-  const title = document.getElementById('newLessonTitle').value.trim();
-  const raw   = document.getElementById('newLessonSentences').value.trim();
-  if (!title) { alert('수업 제목을 입력해 주세요.'); return; }
-  if (!raw)   { alert('예문을 하나 이상 입력해 주세요.'); return; }
-
-  // 새 수업 ID 결정 (커스텀은 'c1', 'c2', …)
-  const customKeys = Object.keys(lessonData).filter(k => k.startsWith('c'));
-  const nextId = 'c' + (customKeys.length + 1);
-
-  // 예문 파싱: 중국어|병음|한국어|로마자
-  const sentences = raw.split('\n').map(line => {
-    const parts = line.split('|');
-    return {
-      lesson: nextId,
-      text:   (parts[0] || '').trim(),
-      pinyin: (parts[1] || '').trim(),
-      label:  (parts[2] || '').trim(),
-      roman:  (parts[3] || '').trim(),
-    };
-  }).filter(s => s.text);
-
-  if (sentences.length === 0) { alert('올바른 형식의 예문을 입력해 주세요.'); return; }
-
-  // lessonData에 추가
-  lessonData[nextId] = {
-    title,
-    tabs: [{ id: 'custom-' + nextId, label: '📖 예문' }],
-    custom: true,
-    sentences,
-  };
-
-  // allSentences에 추가
-  sentences.forEach(s => allSentences.push(s));
-
-  // 섹션 DOM 생성
-  createCustomSection(nextId, sentences);
-
-  // localStorage 저장
-  saveCustomLessons();
-
-  // 탭 재렌더링 및 해당 수업으로 이동
-  renderLessonTabs();
-  closeAddLessonModal();
-  switchLesson(nextId);
-}
-
-function createCustomSection(lessonId, sentences) {
-  const tabId = 'custom-' + lessonId;
-  const sec = document.createElement('div');
-  sec.className = 'section';
-  sec.id = 'sec-' + tabId;
-
-  sentences.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.type = 'hui'; // 기본 색상
-    card.dataset.text   = s.text;
-    card.dataset.korean = s.label;
-    card.dataset.roman  = s.roman;
-    card.innerHTML = `
-      <div class="card-chinese">${s.text}</div>
-      <div class="card-pinyin">${s.pinyin}</div>
-      <div class="card-korean">${s.label}</div>
-      <div class="card-actions">
-        <button class="btn-tts" onclick="speakText(${JSON.stringify(s.text)},${JSON.stringify(s.label)})">🔊</button>
-      </div>`;
-    sec.appendChild(card);
-  });
-
-  document.querySelector('.content').appendChild(sec);
-}
-
-// ── LOCALSTORAGE ──
-const LS_KEY = 'chinese-study-custom-lessons';
-
-function saveCustomLessons() {
-  const customs = Object.entries(lessonData)
-    .filter(([, v]) => v.custom)
-    .map(([id, data]) => ({ id, title: data.title, sentences: data.sentences }));
-  try { localStorage.setItem(LS_KEY, JSON.stringify(customs)); } catch(e) {}
-}
-
-function loadCustomLessons() {
-  let saved;
-  try { saved = JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return; }
-  saved.forEach(item => {
-    const { id, title, sentences } = item;
-    lessonData[id] = {
-      title,
-      tabs: [{ id: 'custom-' + id, label: '📖 예문' }],
-      custom: true,
-      sentences,
-    };
-    sentences.forEach(s => allSentences.push(s));
-    createCustomSection(id, sentences);
-  });
-  if (saved.length > 0) renderLessonTabs();
-}
-
 // ── 초기 렌더링 (모든 변수·함수 선언 후 실행) ──
 document.addEventListener('DOMContentLoaded', function() {
   renderLessonTabs();
   renderSubTabs('1');
   showTab('hui');
   linkCardsToSentences();
-  loadCustomLessons();
 
   // 카드 펼침/닫기: card-actions(.btn-tts, .btn-reveal)나 tappable 클릭은 무시
   document.addEventListener('click', function(e) {
