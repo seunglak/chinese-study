@@ -423,19 +423,8 @@
     font-family: var(--font);
   }
   .btn-reveal:active { opacity: 0.6; }
-  .btn-tts {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0,122,255,0.1);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    font-size: 16px;
-    transition: opacity .12s;
-    margin-left: auto;
-    color: var(--blue);
-  }
-  .btn-tts:active { opacity: 0.5; }
+  /* zh-mode에서는 card-actions(btn-reveal만 있음) 숨김 */
+  body:not(.ko-mode) .card-actions { display: none; }
 
   .hint-text {
     font-size: 12px;
@@ -868,7 +857,6 @@
     <div class="card-korean">나는 중국어를 할 줄 안다.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我会说汉语','나는 중국어를 할 줄 안다')">🔊</button>
     </div>
   </div>
 
@@ -883,7 +871,6 @@
     <div class="card-korean">너 운전할 줄 알아?</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你会开车吗','너 운전할 줄 알아?')">🔊</button>
     </div>
   </div>
 
@@ -898,7 +885,6 @@
     <div class="card-korean">그는 피아노를 칠 줄 안다.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('他会弹钢琴','그는 피아노를 칠 줄 안다')">🔊</button>
     </div>
   </div>
 
@@ -913,7 +899,6 @@
     <div class="card-korean">너 술을 마실 줄 알아? (방법을 아니?)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你会喝酒吗','너 술을 마실 줄 알아?')">🔊</button>
     </div>
   </div>
 </div>
@@ -946,7 +931,6 @@
     <div class="card-korean">나는 맥주 5병을 마실 수 있다. (주량)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我能喝五瓶啤酒','나는 맥주 다섯 병을 마실 수 있다')">🔊</button>
     </div>
   </div>
 
@@ -961,7 +945,6 @@
     <div class="card-korean">너 (시간 돼서) 올 수 있어?</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你能来吗','너 올 수 있어?')">🔊</button>
     </div>
   </div>
 
@@ -977,7 +960,6 @@
     <div class="card-korean">그는 100킬로그램을 들 수 있다. (체력)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('他能举一百公斤','그는 백 킬로그램을 들 수 있다')">🔊</button>
     </div>
   </div>
 
@@ -992,7 +974,6 @@
     <div class="card-korean">너 술 마셔도 돼? (오늘 차 없어? 몸 괜찮아?)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你能喝酒吗','너 술 마셔도 돼?')">🔊</button>
     </div>
   </div>
 </div>
@@ -1023,7 +1004,6 @@
     <div class="card-korean">여기서 담배 피워도 되나요?</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('这里可以抽烟吗','여기서 담배 피워도 되나요?')">🔊</button>
     </div>
   </div>
 
@@ -1038,7 +1018,6 @@
     <div class="card-korean">제가 들어가도 될까요?</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我可以进来吗','제가 들어가도 될까요?')">🔊</button>
     </div>
   </div>
 
@@ -1052,7 +1031,6 @@
     <div class="card-korean">너 먼저 가도 돼. (허락)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你可以先走','너 먼저 가도 돼')">🔊</button>
     </div>
   </div>
 
@@ -1068,7 +1046,6 @@
     <div class="card-korean">우리 내일 만나도 될까요? (제안)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我们可以明天见面吗','우리 내일 만나도 될까요?')">🔊</button>
     </div>
   </div>
 </div>
@@ -1244,7 +1221,6 @@
     <div class="card-korean">내일은 비가 올 것이다.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('明天会下雨。','내일은 비가 올 것이다')">🔊</button>
     </div>
   </div>
 
@@ -1259,7 +1235,6 @@
     <div class="card-korean">그는 올 거야. (的 → 확신의 강조)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('他会来的。','그는 올 거야')">🔊</button>
     </div>
   </div>
 
@@ -1274,7 +1249,6 @@
     <div class="card-korean">너는 성공할 거야.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('你会成功的。','너는 성공할 거야')">🔊</button>
     </div>
   </div>
 </div>
@@ -1305,7 +1279,6 @@
     <div class="card-korean">나는 중국에 갈 거야. (의지·계획)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我要去中国。','나는 중국에 갈 거야')">🔊</button>
     </div>
   </div>
 
@@ -1320,7 +1293,6 @@
     <div class="card-korean">나는 커피를 마실 거야. (주문·의지)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我要喝咖啡。','나는 커피를 마실 거야')">🔊</button>
     </div>
   </div>
 
@@ -1335,7 +1307,6 @@
     <div class="card-korean">곧 어두워지려 한다. (임박한 변화)</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('天要黑了。','곧 어두워지려 한다')">🔊</button>
     </div>
   </div>
 </div>
@@ -1366,7 +1337,6 @@
     <div class="card-korean">우리 내일 봐.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我们明天见。','우리 내일 봐')">🔊</button>
     </div>
   </div>
 
@@ -1381,7 +1351,6 @@
     <div class="card-korean">내가 오후에 전화할게.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我下午给你打电话。','내가 오후에 전화할게')">🔊</button>
     </div>
   </div>
 
@@ -1396,7 +1365,6 @@
     <div class="card-korean">나는 내일 중국 요리를 먹을 거야.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我明天吃中国菜。','나는 내일 중국 요리를 먹을 거야')">🔊</button>
     </div>
   </div>
 </div>
@@ -1427,7 +1395,6 @@
     <div class="card-korean">기차가 곧 출발하려고 해!</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('火车快要走了！','기차가 곧 출발하려고 해')">🔊</button>
     </div>
   </div>
 
@@ -1444,7 +1411,6 @@
     <div class="card-korean">곧 비가 올 것 같아, 우산 챙겨.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('快要下雨了，带伞吧。','곧 비가 올 것 같아, 우산 챙겨')">🔊</button>
     </div>
   </div>
 
@@ -1459,7 +1425,6 @@
     <div class="card-korean">나 곧 졸업해.</div>
     <div class="card-actions">
       <button class="btn-reveal" onclick="revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
-      <button class="btn-tts" onclick="speakText('我快要毕业了。','나 곧 졸업해')">🔊</button>
     </div>
   </div>
 
@@ -2107,11 +2072,18 @@ document.addEventListener('DOMContentLoaded', function() {
   showTab('hui');
   linkCardsToSentences();
 
-  // 카드 펼침/닫기: card-actions(.btn-tts, .btn-reveal)나 tappable 클릭은 무시
+  // 카드 탭 → TTS 재생 (tappable·card-actions 클릭은 제외)
   document.addEventListener('click', function(e) {
-    if (e.target.closest('.card-actions') || e.target.closest('.tappable')) return;
+    if (e.target.closest('.tappable')) return;
+    if (e.target.closest('.card-actions')) return;
     const card = e.target.closest('.card');
-    if (card) revealCard(card);
+    if (!card) return;
+    // ko-mode에서는 펼침 토글도 함께
+    if (document.body.classList.contains('ko-mode')) revealCard(card);
+    // 카드의 중국어·한국어 텍스트로 TTS
+    const chinese = card.dataset.text || '';
+    const korean  = card.dataset.korean || '';
+    if (chinese) speakText(chinese, korean);
   });
 });
 </script>
