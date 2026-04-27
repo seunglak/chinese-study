@@ -523,6 +523,34 @@
     margin: 20px 0 10px;
   }
 
+  /* ── KOREAN MODE CARD ── */
+  .ko-view { display: none; }
+  body.ko-mode .ko-view { display: block; }
+  body.ko-mode .card-chinese,
+  body.ko-mode .card-pinyin { display: none !important; }
+  body.ko-mode .card.revealed .card-chinese,
+  body.ko-mode .card.revealed .card-pinyin { display: block !important; }
+  body.ko-mode .card-korean { display: none !important; } /* ko-view로 대체 */
+
+  .ko-view-korean {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .ko-view-roman {
+    font-size: 13px;
+    color: #60a5fa;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+  body.ko-mode .hint-text::before { content: ''; }
+  body.ko-mode .btn-reveal-text-default { display: none; }
+  body.ko-mode .btn-reveal-text-ko { display: inline; }
+  .btn-reveal-text-ko { display: none; }
+  body.ko-mode .card::before { background: #10b981 !important; }
+
   /* ── PROGRESS BAR ── */
   .progress-wrap {
     padding: 8px 16px 0;
@@ -691,7 +719,7 @@
     <div class="card-pinyin">Wǒ huì shuō hànyǔ.</div>
     <div class="card-korean">나는 중국어를 할 줄 안다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我会说汉语','나는 중국어를 할 줄 안다')">🔊</button>
     </div>
   </div>
@@ -706,7 +734,7 @@
     <div class="card-pinyin">Nǐ huì kāichē ma?</div>
     <div class="card-korean">너 운전할 줄 알아?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会开车吗','너 운전할 줄 알아?')">🔊</button>
     </div>
   </div>
@@ -721,7 +749,7 @@
     <div class="card-pinyin">Tā huì tán gāngqín.</div>
     <div class="card-korean">그는 피아노를 칠 줄 안다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会弹钢琴','그는 피아노를 칠 줄 안다')">🔊</button>
     </div>
   </div>
@@ -736,7 +764,7 @@
     <div class="card-pinyin">Nǐ huì hē jiǔ ma?</div>
     <div class="card-korean">너 술을 마실 줄 알아? (방법을 아니?)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会喝酒吗','너 술을 마실 줄 알아?')">🔊</button>
     </div>
   </div>
@@ -769,7 +797,7 @@
     <div class="card-pinyin">Wǒ néng hē wǔ píng píjiǔ.</div>
     <div class="card-korean">나는 맥주 5병을 마실 수 있다. (주량)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我能喝五瓶啤酒','나는 맥주 다섯 병을 마실 수 있다')">🔊</button>
     </div>
   </div>
@@ -784,7 +812,7 @@
     <div class="card-pinyin">Nǐ néng lái ma?</div>
     <div class="card-korean">너 (시간 돼서) 올 수 있어?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能来吗','너 올 수 있어?')">🔊</button>
     </div>
   </div>
@@ -800,7 +828,7 @@
     <div class="card-pinyin">Tā néng jǔ yī bǎi gōngjīn.</div>
     <div class="card-korean">그는 100킬로그램을 들 수 있다. (체력)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('他能举一百公斤','그는 백 킬로그램을 들 수 있다')">🔊</button>
     </div>
   </div>
@@ -815,7 +843,7 @@
     <div class="card-pinyin">Nǐ néng hē jiǔ ma?</div>
     <div class="card-korean">너 술 마셔도 돼? (오늘 차 없어? 몸 괜찮아?)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你能喝酒吗','너 술 마셔도 돼?')">🔊</button>
     </div>
   </div>
@@ -846,7 +874,7 @@
     <div class="card-pinyin">Zhèlǐ kěyǐ chōuyān ma?</div>
     <div class="card-korean">여기서 담배 피워도 되나요?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('这里可以抽烟吗','여기서 담배 피워도 되나요?')">🔊</button>
     </div>
   </div>
@@ -861,7 +889,7 @@
     <div class="card-pinyin">Wǒ kěyǐ jìnlái ma?</div>
     <div class="card-korean">제가 들어가도 될까요?</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我可以进来吗','제가 들어가도 될까요?')">🔊</button>
     </div>
   </div>
@@ -875,7 +903,7 @@
     <div class="card-pinyin">Nǐ kěyǐ xiān zǒu.</div>
     <div class="card-korean">너 먼저 가도 돼. (허락)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你可以先走','너 먼저 가도 돼')">🔊</button>
     </div>
   </div>
@@ -891,7 +919,7 @@
     <div class="card-pinyin">Wǒmen kěyǐ míngtiān jiànmiàn ma?</div>
     <div class="card-korean">우리 내일 만나도 될까요? (제안)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们可以明天见面吗','우리 내일 만나도 될까요?')">🔊</button>
     </div>
   </div>
@@ -1067,7 +1095,7 @@
     <div class="card-pinyin">Míngtiān huì xià yǔ.</div>
     <div class="card-korean">내일은 비가 올 것이다.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('明天会下雨。','내일은 비가 올 것이다')">🔊</button>
     </div>
   </div>
@@ -1082,7 +1110,7 @@
     <div class="card-pinyin">Tā huì lái de.</div>
     <div class="card-korean">그는 올 거야. (的 → 확신의 강조)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('他会来的。','그는 올 거야')">🔊</button>
     </div>
   </div>
@@ -1097,7 +1125,7 @@
     <div class="card-pinyin">Nǐ huì chénggōng de.</div>
     <div class="card-korean">너는 성공할 거야.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('你会成功的。','너는 성공할 거야')">🔊</button>
     </div>
   </div>
@@ -1128,7 +1156,7 @@
     <div class="card-pinyin">Wǒ yào qù Zhōngguó.</div>
     <div class="card-korean">나는 중국에 갈 거야. (의지·계획)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要去中国。','나는 중국에 갈 거야')">🔊</button>
     </div>
   </div>
@@ -1143,7 +1171,7 @@
     <div class="card-pinyin">Wǒ yào hē kāfēi.</div>
     <div class="card-korean">나는 커피를 마실 거야. (주문·의지)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我要喝咖啡。','나는 커피를 마실 거야')">🔊</button>
     </div>
   </div>
@@ -1158,7 +1186,7 @@
     <div class="card-pinyin">Tiān yào hēi le.</div>
     <div class="card-korean">곧 어두워지려 한다. (임박한 변화)</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('天要黑了。','곧 어두워지려 한다')">🔊</button>
     </div>
   </div>
@@ -1189,7 +1217,7 @@
     <div class="card-pinyin">Wǒmen míngtiān jiàn.</div>
     <div class="card-korean">우리 내일 봐.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我们明天见。','우리 내일 봐')">🔊</button>
     </div>
   </div>
@@ -1204,7 +1232,7 @@
     <div class="card-pinyin">Wǒ xiàwǔ gěi nǐ dǎ diànhuà.</div>
     <div class="card-korean">내가 오후에 전화할게.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我下午给你打电话。','내가 오후에 전화할게')">🔊</button>
     </div>
   </div>
@@ -1219,7 +1247,7 @@
     <div class="card-pinyin">Wǒ míngtiān chī Zhōngguó cài.</div>
     <div class="card-korean">나는 내일 중국 요리를 먹을 거야.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我明天吃中国菜。','나는 내일 중국 요리를 먹을 거야')">🔊</button>
     </div>
   </div>
@@ -1250,7 +1278,7 @@
     <div class="card-pinyin">Huǒchē kuàiyào zǒu le!</div>
     <div class="card-korean">기차가 곧 출발하려고 해!</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('火车快要走了！','기차가 곧 출발하려고 해')">🔊</button>
     </div>
   </div>
@@ -1267,7 +1295,7 @@
     <div class="card-pinyin">Kuàiyào xià yǔ le, dài sǎn ba.</div>
     <div class="card-korean">곧 비가 올 것 같아, 우산 챙겨.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('快要下雨了，带伞吧。','곧 비가 올 것 같아, 우산 챙겨')">🔊</button>
     </div>
   </div>
@@ -1282,7 +1310,7 @@
     <div class="card-pinyin">Wǒ kuàiyào bì yè le.</div>
     <div class="card-korean">나 곧 졸업해.</div>
     <div class="card-actions">
-      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))">병음 · 해석 보기</button>
+      <button class="btn-reveal" onclick="event.stopPropagation(); revealCard(this.closest('.card'))"><span class="btn-reveal-text-default">병음 · 해석 보기</span><span class="btn-reveal-text-ko">중국어 · 병음 보기</span></button>
       <button class="btn-tts" onclick="event.stopPropagation(); speakText('我快要毕业了。','나 곧 졸업해')">🔊</button>
     </div>
   </div>
@@ -1519,30 +1547,30 @@ if (typeof speechSynthesis !== 'undefined') {
 }
 
 const allSentences = [
-  { lesson:'1', text: '我会说汉语。',       pinyin: 'Wǒ huì shuō hànyǔ.',              label: '나는 중국어를 할 줄 안다.' },
-  { lesson:'1', text: '你会开车吗？',       pinyin: 'Nǐ huì kāichē ma?',               label: '너 운전할 줄 알아?' },
-  { lesson:'1', text: '他会弹钢琴。',       pinyin: 'Tā huì tán gāngqín.',             label: '그는 피아노를 칠 줄 안다.' },
-  { lesson:'1', text: '你会喝酒吗？',       pinyin: 'Nǐ huì hē jiǔ ma?',              label: '너 술을 마실 줄 알아?' },
-  { lesson:'1', text: '我能喝五瓶啤酒。',   pinyin: 'Wǒ néng hē wǔ píng píjiǔ.',      label: '나는 맥주 5병을 마실 수 있다.' },
-  { lesson:'1', text: '你能来吗？',         pinyin: 'Nǐ néng lái ma?',                 label: '너 올 수 있어?' },
-  { lesson:'1', text: '他能举一百公斤。',   pinyin: 'Tā néng jǔ yī bǎi gōngjīn.',     label: '그는 100킬로그램을 들 수 있다.' },
-  { lesson:'1', text: '你能喝酒吗？',       pinyin: 'Nǐ néng hē jiǔ ma?',             label: '너 술 마셔도 돼?' },
-  { lesson:'1', text: '这里可以抽烟吗？',   pinyin: 'Zhèlǐ kěyǐ chōuyān ma?',         label: '여기서 담배 피워도 되나요?' },
-  { lesson:'1', text: '我可以进来吗？',     pinyin: 'Wǒ kěyǐ jìnlái ma?',             label: '들어가도 될까요?' },
-  { lesson:'1', text: '你可以先走。',       pinyin: 'Nǐ kěyǐ xiān zǒu.',              label: '너 먼저 가도 돼.' },
-  { lesson:'1', text: '我们可以明天见面吗？', pinyin: 'Wǒmen kěyǐ míngtiān jiànmiàn ma?', label: '우리 내일 만나도 될까요?' },
-  { lesson:'2', text: '明天会下雨。',       pinyin: 'Míngtiān huì xià yǔ.',            label: '내일은 비가 올 것이다.' },
-  { lesson:'2', text: '他会来的。',         pinyin: 'Tā huì lái de.',                  label: '그는 올 거야.' },
-  { lesson:'2', text: '你会成功的。',       pinyin: 'Nǐ huì chénggōng de.',            label: '너는 성공할 거야.' },
-  { lesson:'2', text: '我要去中国。',       pinyin: 'Wǒ yào qù Zhōngguó.',            label: '나는 중국에 갈 거야.' },
-  { lesson:'2', text: '我要喝咖啡。',       pinyin: 'Wǒ yào hē kāfēi.',               label: '나는 커피를 마실 거야.' },
-  { lesson:'2', text: '天要黑了。',         pinyin: 'Tiān yào hēi le.',                label: '곧 어두워지려 한다.' },
-  { lesson:'2', text: '我们明天见。',       pinyin: 'Wǒmen míngtiān jiàn.',            label: '우리 내일 봐.' },
-  { lesson:'2', text: '我下午给你打电话。', pinyin: 'Wǒ xiàwǔ gěi nǐ dǎ diànhuà.',   label: '내가 오후에 전화할게.' },
-  { lesson:'2', text: '我明天吃中国菜。',   pinyin: 'Wǒ míngtiān chī Zhōngguó cài.', label: '나는 내일 중국 요리를 먹을 거야.' },
-  { lesson:'2', text: '火车快要走了！',     pinyin: 'Huǒchē kuàiyào zǒu le!',         label: '기차가 곧 출발하려고 해!' },
-  { lesson:'2', text: '快要下雨了，带伞吧。', pinyin: 'Kuàiyào xià yǔ le, dài sǎn ba.', label: '곧 비가 올 것 같아, 우산 챙겨.' },
-  { lesson:'2', text: '我快要毕业了。',     pinyin: 'Wǒ kuàiyào bì yè le.',           label: '나 곧 졸업해.' },
+  { lesson:'1', text:'我会说汉语。',         pinyin:'Wǒ huì shuō hànyǔ.',                label:'나는 중국어를 할 줄 안다.',       roman:'Na-neun junggugeo-reul hal jul anda.' },
+  { lesson:'1', text:'你会开车吗？',         pinyin:'Nǐ huì kāichē ma?',                 label:'너 운전할 줄 알아?',             roman:'Neo unjeonhal jul ara?' },
+  { lesson:'1', text:'他会弹钢琴。',         pinyin:'Tā huì tán gāngqín.',               label:'그는 피아노를 칠 줄 안다.',       roman:'Geuneun piano-reul chil jul anda.' },
+  { lesson:'1', text:'你会喝酒吗？',         pinyin:'Nǐ huì hē jiǔ ma?',                label:'너 술을 마실 줄 알아?',           roman:'Neo sul-eul masil jul ara?' },
+  { lesson:'1', text:'我能喝五瓶啤酒。',     pinyin:'Wǒ néng hē wǔ píng píjiǔ.',        label:'나는 맥주 5병을 마실 수 있다.',   roman:'Na-neun maekju obyeong-eul masil su itda.' },
+  { lesson:'1', text:'你能来吗？',           pinyin:'Nǐ néng lái ma?',                   label:'너 올 수 있어?',                 roman:'Neo ol su isseo?' },
+  { lesson:'1', text:'他能举一百公斤。',     pinyin:'Tā néng jǔ yī bǎi gōngjīn.',       label:'그는 100킬로그램을 들 수 있다.',  roman:'Geuneun baek killogram-eul deul su itda.' },
+  { lesson:'1', text:'你能喝酒吗？',         pinyin:'Nǐ néng hē jiǔ ma?',               label:'너 술 마셔도 돼?',               roman:'Neo sul masyeodo dwae?' },
+  { lesson:'1', text:'这里可以抽烟吗？',     pinyin:'Zhèlǐ kěyǐ chōuyān ma?',           label:'여기서 담배 피워도 되나요?',      roman:'Yeogiseo dambae piweo-do doenayo?' },
+  { lesson:'1', text:'我可以进来吗？',       pinyin:'Wǒ kěyǐ jìnlái ma?',               label:'들어가도 될까요?',               roman:'Deureogado doelkkayo?' },
+  { lesson:'1', text:'你可以先走。',         pinyin:'Nǐ kěyǐ xiān zǒu.',                label:'너 먼저 가도 돼.',               roman:'Neo meonjeo gado dwae.' },
+  { lesson:'1', text:'我们可以明天见面吗？', pinyin:'Wǒmen kěyǐ míngtiān jiànmiàn ma?', label:'우리 내일 만나도 될까요?',        roman:'Uri naeil mannado doelkkayo?' },
+  { lesson:'2', text:'明天会下雨。',         pinyin:'Míngtiān huì xià yǔ.',              label:'내일은 비가 올 것이다.',          roman:'Naeil-eun biga ol geosida.' },
+  { lesson:'2', text:'他会来的。',           pinyin:'Tā huì lái de.',                    label:'그는 올 거야.',                  roman:'Geuneun ol geoya.' },
+  { lesson:'2', text:'你会成功的。',         pinyin:'Nǐ huì chénggōng de.',              label:'너는 성공할 거야.',              roman:'Neoneun seonggonghal geoya.' },
+  { lesson:'2', text:'我要去中国。',         pinyin:'Wǒ yào qù Zhōngguó.',              label:'나는 중국에 갈 거야.',            roman:'Na-neun Junggu-e gal geoya.' },
+  { lesson:'2', text:'我要喝咖啡。',         pinyin:'Wǒ yào hē kāfēi.',                 label:'나는 커피를 마실 거야.',          roman:'Na-neun keopi-reul masil geoya.' },
+  { lesson:'2', text:'天要黑了。',           pinyin:'Tiān yào hēi le.',                  label:'곧 어두워지려 한다.',             roman:'Got eoduwojiryo handa.' },
+  { lesson:'2', text:'我们明天见。',         pinyin:'Wǒmen míngtiān jiàn.',              label:'우리 내일 봐.',                  roman:'Uri naeil bwa.' },
+  { lesson:'2', text:'我下午给你打电话。',   pinyin:'Wǒ xiàwǔ gěi nǐ dǎ diànhuà.',     label:'내가 오후에 전화할게.',           roman:'Naega ohu-e jeonhwahalge.' },
+  { lesson:'2', text:'我明天吃中国菜。',     pinyin:'Wǒ míngtiān chī Zhōngguó cài.',    label:'나는 내일 중국 요리를 먹을 거야.',roman:'Na-neun naeil Junggu yori-reul meogeul geoya.' },
+  { lesson:'2', text:'火车快要走了！',       pinyin:'Huǒchē kuàiyào zǒu le!',            label:'기차가 곧 출발하려고 해!',        roman:'Gichaga got chulbalharyeogo hae!' },
+  { lesson:'2', text:'快要下雨了，带伞吧。', pinyin:'Kuàiyào xià yǔ le, dài sǎn ba.',   label:'곧 비가 올 것 같아, 우산 챙겨.', roman:'Got biga ol geot gata, usan chaenggyeo.' },
+  { lesson:'2', text:'我快要毕业了。',       pinyin:'Wǒ kuàiyào bì yè le.',             label:'나 곧 졸업해.',                  roman:'Na got joreophae.' },
 ];
 
 // 개별 🔊 버튼: 모드에 따라 순서 결정
@@ -1603,6 +1631,53 @@ function toggleLoop() {
   btn.classList.toggle('active', isLooping);
 }
 
+// 카드에 한국어 데이터 주입
+function linkCardsToSentences() {
+  document.querySelectorAll('.card[data-type]').forEach(card => {
+    // card-chinese 텍스트에서 한자만 추출 (tappable의 첫 텍스트노드)
+    const chars = [];
+    card.querySelectorAll('.tappable').forEach(span => {
+      const tn = span.childNodes[0];
+      if (tn && tn.nodeType === Node.TEXT_NODE) chars.push(tn.textContent);
+    });
+    const cardChinese = chars.join('').replace(/\s/g,'');
+    const s = allSentences.find(s => {
+      const t = s.text.replace(/[。？！，\s]/g,'');
+      return t === cardChinese || cardChinese.startsWith(t) || t.startsWith(cardChinese);
+    });
+    if (s) {
+      card.dataset.korean = s.label;
+      card.dataset.roman  = s.roman;
+    }
+  });
+}
+
+function updateCardModes() {
+  document.body.classList.toggle('ko-mode', studyMode === 'ko');
+  document.querySelectorAll('.card[data-type]').forEach(card => {
+    // 기존 ko-view 제거
+    const old = card.querySelector('.ko-view');
+    if (old) old.remove();
+    if (studyMode === 'ko' && card.dataset.korean) {
+      const div = document.createElement('div');
+      div.className = 'ko-view';
+      div.innerHTML = `
+        <div class="ko-view-korean">${card.dataset.korean}</div>
+        <div class="ko-view-roman">${card.dataset.roman || ''}</div>`;
+      card.insertBefore(div, card.firstChild);
+    }
+    // revealed 상태 초기화
+    card.classList.remove('revealed');
+    const btn = card.querySelector('.btn-reveal');
+    if (btn) {
+      const df = btn.querySelector('.btn-reveal-text-default');
+      const ko = btn.querySelector('.btn-reveal-text-ko');
+      if (df) df.textContent = '병음 · 해석 보기';
+      if (ko) ko.textContent = '중국어 · 병음 보기';
+    }
+  });
+}
+
 function toggleMode() {
   studyMode = studyMode === 'zh' ? 'ko' : 'zh';
   const btn = document.getElementById('modeBtn');
@@ -1613,7 +1688,7 @@ function toggleMode() {
     btn.textContent = '🇰🇷 한국어 학습';
     btn.classList.add('active');
   }
-  // 재생 중이면 재시작
+  updateCardModes();
   if (ttsQueue.length > 0) playAll();
 }
 
@@ -1648,7 +1723,7 @@ function playNext() {
   const secondPhase = isKoMode ? 'zh' : 'ko';
 
   // 1단계
-  showNowPlaying(item.text, item.pinyin, item.label, count, total, firstPhase);
+  showNowPlaying(item.text, item.pinyin, item.roman, item.label, count, total, firstPhase);
   const u1 = isKoMode ? makeKo(item.label) : makeUtterance(item.text);
   currentUtterance = u1;
   u1.onend = () => {
@@ -1656,7 +1731,7 @@ function playNext() {
     // 2단계
     setTimeout(() => {
       if (isPaused) return;
-      showNowPlaying(item.text, item.pinyin, item.label, count, total, secondPhase);
+      showNowPlaying(item.text, item.pinyin, item.roman, item.label, count, total, secondPhase);
       const u2 = isKoMode ? makeUtterance(item.text) : makeKo(item.label);
       u2.onend = () => {
         if (!isPaused) {
@@ -1705,12 +1780,13 @@ function updateProgress(pct, label) {
   document.getElementById('progressLabel').textContent = label;
 }
 
-function showNowPlaying(chinese, pinyin, korean, count, total, phase) {
+function showNowPlaying(chinese, pinyin, roman, korean, count, total, phase) {
   const el = document.getElementById('nowPlaying');
   el.classList.add('visible');
-  document.getElementById('npChinese').textContent = chinese;
-  document.getElementById('npPinyin').textContent = pinyin;
-  document.getElementById('npKorean').textContent = korean;
+  const isKoM = studyMode === 'ko';
+  document.getElementById('npChinese').textContent = isKoM ? korean  : chinese;
+  document.getElementById('npPinyin').textContent  = isKoM ? roman   : pinyin;
+  document.getElementById('npKorean').textContent  = isKoM ? chinese : korean;
   document.getElementById('npCount').textContent = `${count} / ${total}`;
   const phaseEl = document.getElementById('npPhase');
   if (phase === 'zh') {
@@ -1760,6 +1836,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderLessonTabs();
   renderSubTabs('1');
   showTab('hui');
+  linkCardsToSentences();
 });
 </script>
 </body>
