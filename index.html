@@ -1575,21 +1575,35 @@ const allSentences = [
 
 // 개별 🔊 버튼: 모드에 따라 순서 결정
 function speakText(chinese, korean) {
-  window.speechSynthesis.cancel();
-  setTimeout(() => {
-    const isKoMode = studyMode === 'ko';
-    const makeKo = (text) => {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'ko-KR'; u.rate = ttsRate; u.pitch = 1;
-      return u;
-    };
-    const first  = isKoMode ? makeKo(korean)      : makeUtterance(chinese);
+  // playAll 진행 중이면 완전히 중단
+  isPaused = true;
+  ttsQueue = [];
+  ttsIndex = 0;
+  document.getElementById('pauseBtn').style.display = 'none';
+  hideNowPlaying();
+
+  const isKoMode = studyMode === 'ko';
+  const makeKo = (text) => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR'; u.rate = ttsRate; u.pitch = 1;
+    return u;
+  };
+
+  const doSpeak = () => {
+    const first  = isKoMode ? makeKo(korean)        : makeUtterance(chinese);
     const second = isKoMode ? makeUtterance(chinese) : makeKo(korean);
-    first.onend = () => {
-      setTimeout(() => window.speechSynthesis.speak(second), 400);
-    };
+    first.onend = () => setTimeout(() => window.speechSynthesis.speak(second), 300);
     window.speechSynthesis.speak(first);
-  }, 150);
+  };
+
+  // 재생 중일 때만 cancel + 딜레이 (Chrome 버그 대응)
+  // 아무것도 안 재생 중일 때는 즉시 speak (iOS Safari 사용자 제스처 체인 유지)
+  if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+    window.speechSynthesis.cancel();
+    setTimeout(doSpeak, 200);
+  } else {
+    doSpeak();
+  }
 }
 
 // ── WAKE LOCK ──
