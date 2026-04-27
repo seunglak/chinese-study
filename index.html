@@ -448,10 +448,6 @@
     .header {
       background: rgba(0,0,0,0.88);
     }
-    .progress-wrap.playing {
-      background: rgba(28,28,30,0.97);
-    }
-    .progress-bar { background: rgba(255,255,255,0.08); }
     .compare-table th { background: #2C2C2E; }
     .tip-card { background: #2C2200; border-color: rgba(255,196,0,0.3); }
     .tip-card .tip-title { color: #FFD60A; }
@@ -641,22 +637,6 @@
   .btn-reveal-text-ko { display: none; }
   body.ko-mode .card[data-type] { border-left-color: var(--neng-color) !important; }
 
-  /* ── PROGRESS BAR (iOS thin blue) ── */
-  .progress-wrap {
-    display: none;  /* 재생 중에만 표시 */
-    padding: 0 16px 4px;
-    background: rgba(255,255,255,0.95);
-    border-bottom: 0.5px solid var(--sep);
-  }
-  .progress-wrap.playing { display: block; }
-  .progress-bar { height: 2px; background: rgba(0,0,0,0.06); overflow: hidden; margin-top: 5px; }
-  .progress-fill {
-    height: 100%;
-    background: var(--blue);
-    width: 0%;
-    transition: width .4s cubic-bezier(.4,0,.2,1);
-  }
-  .progress-label { font-size: 11px; color: var(--sub); text-align: right; padding: 2px 0 0; }
 
   /* ── NOW PLAYING (iOS Music Player) ── */
   .now-playing {
@@ -740,11 +720,6 @@
   </div>
 </div>
 
-<!-- PROGRESS -->
-<div class="progress-wrap">
-  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-label" id="progressLabel"></div>
-</div>
 
 <!-- NOW PLAYING -->
 <div class="now-playing" id="nowPlaying">
@@ -1930,12 +1905,7 @@ function toggleSpeed() {
   document.getElementById('speedBtn').textContent = `⚡ ${ttsRate}×`;
 }
 
-function updateProgress(pct, label) {
-  const wrap = document.querySelector('.progress-wrap');
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = label;
-  wrap.classList.toggle('playing', pct > 0);
-}
+function updateProgress(pct, label) { /* 프로그레스 바 제거됨 */ }
 
 function showNowPlaying(chinese, pinyin, roman, korean, count, total, phase) {
   const el = document.getElementById('nowPlaying');
