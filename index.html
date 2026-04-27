@@ -633,6 +633,7 @@
   <button class="drive-btn btn-stop" onclick="stopTTS()">⏹ 정지</button>
   <button class="drive-btn btn-speed active" id="speedBtn" onclick="toggleSpeed()">⚡ 0.6×</button>
   <button class="drive-btn btn-speed active" id="loopBtn" onclick="toggleLoop()">🔁 반복</button>
+  <button class="drive-btn btn-speed" id="modeBtn" onclick="toggleMode()">🇨🇳 중국어 학습</button>
   <select id="voiceSelect" style="background:#1e293b;color:#94a3b8;border:1px solid #374151;border-radius:12px;padding:6px 10px;font-size:12px;cursor:pointer;max-width:160px;" onchange="onVoiceChange()">
     <option value="">🎙 목소리 로딩 중…</option>
   </select>
@@ -1456,6 +1457,7 @@ let isPaused = false;
 let ttsRate = 0.6;
 let currentUtterance = null;
 let isLooping = true;
+let studyMode = 'zh'; // 'zh' = 중국어 학습(중→한), 'ko' = 한국어 학습(한→중)
 let selectedVoice = null;
 
 // ── VOICE LOADING ──
@@ -1543,23 +1545,22 @@ const allSentences = [
   { lesson:'2', text: '我快要毕业了。',     pinyin: 'Wǒ kuàiyào bì yè le.',           label: '나 곧 졸업해.' },
 ];
 
-// 개별 🔊 버튼: 중국어 → 한국어 순서로 읽기
+// 개별 🔊 버튼: 모드에 따라 순서 결정
 function speakText(chinese, korean) {
   window.speechSynthesis.cancel();
-  // cancel() 직후 speak()를 바로 호출하면 무음 처리되는 브라우저 버그 방지
   setTimeout(() => {
-    const u1 = makeUtterance(chinese);
-    u1.onend = () => {
-      setTimeout(() => {
-        if (!korean) return;
-        const u2 = new SpeechSynthesisUtterance(korean);
-        u2.lang = 'ko-KR';
-        u2.rate = ttsRate;
-        u2.pitch = 1;
-        window.speechSynthesis.speak(u2);
-      }, 400);
+    const isKoMode = studyMode === 'ko';
+    const makeKo = (text) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ko-KR'; u.rate = ttsRate; u.pitch = 1;
+      return u;
     };
-    window.speechSynthesis.speak(u1);
+    const first  = isKoMode ? makeKo(korean)      : makeUtterance(chinese);
+    const second = isKoMode ? makeUtterance(chinese) : makeKo(korean);
+    first.onend = () => {
+      setTimeout(() => window.speechSynthesis.speak(second), 400);
+    };
+    window.speechSynthesis.speak(first);
   }, 150);
 }
 
@@ -1602,6 +1603,20 @@ function toggleLoop() {
   btn.classList.toggle('active', isLooping);
 }
 
+function toggleMode() {
+  studyMode = studyMode === 'zh' ? 'ko' : 'zh';
+  const btn = document.getElementById('modeBtn');
+  if (studyMode === 'zh') {
+    btn.textContent = '🇨🇳 중국어 학습';
+    btn.classList.remove('active');
+  } else {
+    btn.textContent = '🇰🇷 한국어 학습';
+    btn.classList.add('active');
+  }
+  // 재생 중이면 재시작
+  if (ttsQueue.length > 0) playAll();
+}
+
 function playNext() {
   if (ttsIndex >= ttsQueue.length) {
     if (isLooping && ttsQueue.length > 0) {
@@ -1623,20 +1638,26 @@ function playNext() {
     `${count} / ${total}`
   );
 
-  // 1단계: 중국어 읽기
-  showNowPlaying(item.text, item.pinyin, item.label, count, total, 'zh');
-  const u1 = makeUtterance(item.text);
+  const isKoMode = studyMode === 'ko';
+  const makeKo = (text) => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR'; u.rate = ttsRate; u.pitch = 1;
+    return u;
+  };
+  const firstPhase  = isKoMode ? 'ko' : 'zh';
+  const secondPhase = isKoMode ? 'zh' : 'ko';
+
+  // 1단계
+  showNowPlaying(item.text, item.pinyin, item.label, count, total, firstPhase);
+  const u1 = isKoMode ? makeKo(item.label) : makeUtterance(item.text);
   currentUtterance = u1;
   u1.onend = () => {
     if (isPaused) return;
-    // 2단계: 한국어 읽기
+    // 2단계
     setTimeout(() => {
       if (isPaused) return;
-      showNowPlaying(item.text, item.pinyin, item.label, count, total, 'ko');
-      const u2 = new SpeechSynthesisUtterance(item.label);
-      u2.lang = 'ko-KR';
-      u2.rate = ttsRate;
-      u2.pitch = 1;
+      showNowPlaying(item.text, item.pinyin, item.label, count, total, secondPhase);
+      const u2 = isKoMode ? makeUtterance(item.text) : makeKo(item.label);
       u2.onend = () => {
         if (!isPaused) {
           ttsIndex++;
