@@ -236,29 +236,47 @@
     flex-shrink: 0;
     padding: 11px 14px;
     border: none;
-    border-bottom: 3px solid transparent;
     background: transparent;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: color .15s, border-color .15s;
+    transition: color .15s;
     color: var(--sub);
     font-family: var(--font);
     -webkit-tap-highlight-color: transparent;
-    margin-bottom: -0.5px;
     white-space: nowrap;
+    position: relative;
   }
-  .tab-btn.active                       { color: var(--text); font-weight: 600; }
-  .tab-btn.active[data-tab="hui"]       { border-bottom-color: var(--hui-color);  color: var(--hui-color); }
-  .tab-btn.active[data-tab="neng"]      { border-bottom-color: var(--neng-color); color: var(--neng-color); }
-  .tab-btn.active[data-tab="keyi"]      { border-bottom-color: var(--keyi-color); color: var(--keyi-color); }
-  .tab-btn.active[data-tab="compare"]   { border-bottom-color: #AF52DE; color: #AF52DE; }
-  .tab-btn.active[data-tab="quiz"]      { border-bottom-color: #34C759; color: #34C759; }
-  .tab-btn.active[data-tab="huifuture"] { border-bottom-color: #5AC8FA; color: #5AC8FA; }
-  .tab-btn.active[data-tab="yao"]       { border-bottom-color: #AF52DE; color: #AF52DE; }
-  .tab-btn.active[data-tab="timew"]     { border-bottom-color: #FF9500; color: #FF9500; }
-  .tab-btn.active[data-tab="jijiang"]   { border-bottom-color: #FF3B30; color: #FF3B30; }
-  .tab-btn.active[data-tab="quiz2"]     { border-bottom-color: #34C759; color: #34C759; }
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 10%; right: 10%;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background: transparent;
+    transition: background .15s;
+  }
+  .tab-btn.active                       { font-weight: 700; color: var(--text); }
+  .tab-btn.active[data-tab="hui"]       { color: var(--hui-color); }
+  .tab-btn.active[data-tab="hui"]::after       { background: var(--hui-color); }
+  .tab-btn.active[data-tab="neng"]      { color: var(--neng-color); }
+  .tab-btn.active[data-tab="neng"]::after      { background: var(--neng-color); }
+  .tab-btn.active[data-tab="keyi"]      { color: var(--keyi-color); }
+  .tab-btn.active[data-tab="keyi"]::after      { background: var(--keyi-color); }
+  .tab-btn.active[data-tab="compare"]   { color: #AF52DE; }
+  .tab-btn.active[data-tab="compare"]::after   { background: #AF52DE; }
+  .tab-btn.active[data-tab="quiz"]      { color: #34C759; }
+  .tab-btn.active[data-tab="quiz"]::after      { background: #34C759; }
+  .tab-btn.active[data-tab="huifuture"] { color: #5AC8FA; }
+  .tab-btn.active[data-tab="huifuture"]::after { background: #5AC8FA; }
+  .tab-btn.active[data-tab="yao"]       { color: #AF52DE; }
+  .tab-btn.active[data-tab="yao"]::after       { background: #AF52DE; }
+  .tab-btn.active[data-tab="timew"]     { color: #FF9500; }
+  .tab-btn.active[data-tab="timew"]::after     { background: #FF9500; }
+  .tab-btn.active[data-tab="jijiang"]   { color: #FF3B30; }
+  .tab-btn.active[data-tab="jijiang"]::after   { background: #FF3B30; }
+  .tab-btn.active[data-tab="quiz2"]     { color: #34C759; }
+  .tab-btn.active[data-tab="quiz2"]::after     { background: #34C759; }
 
   /* ── CONCEPT CARD data-type (App Store Featured) ── */
   .concept-card[data-type="huifuture"] { background: linear-gradient(145deg, #5AC8FA, #007AFF); }
